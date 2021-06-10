@@ -1,0 +1,129 @@
+<app-header></app-header>
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/review-homework" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+
+                        <div class="transport_title titles_tl">
+                            <h3>Review Homework</h3>
+                        </div>
+
+                        <div class="revw_homewrk_div">
+                            <h4>{{selHWork['subject'].subjectName}}
+                                <span>{{selHWork['topic']}}</span>
+
+                            </h4>
+                            <p class='wordbreak'>{{selHWork['description']}}</p><br>
+                            <div class="minheight">
+                                <p class='width30'><span style='font-weight: 600;'>Upload Date :</span> {{selHWork['homeworkuploadDate'] | date:'dd/MM/yyyy'}}</p>
+                                <p class='width30'><span style='font-weight: 600;'>Due Date :</span> {{selHWork['homeworkdate'] | date:'dd/MM/yyyy'}}</p>
+                                <p class='width30' style="margin-top: -20px;"><span style='font-weight: 600;'>Attachment :</span>
+                                    <a *ngIf="selHWork['attachment']==''" href="javascript:;"></a>
+                                    <!-- <a *ngIf="selHWork['attachment']!=''" style="margin-left: 10%;font-size:40px !important;" class="fa fa-file" (click)="getParentAttachment(selHWork['attachment'])"></a> -->
+                                    <a *ngIf="selHWork['attachment']!=''" style="margin-left: 10%;font-size:40px !important;" class="fa fa-file" (click)="openAttachment(selHWork['attachment'])"></a>
+                                </p>
+                            </div>
+
+
+                        </div>
+                        <div class='studname'>Student Name</div>
+                        <div class='parentattach'>Parent Attachment</div>
+                        <div class='homecomments'>Comments</div>
+                        <div class='parentsign'>Parent Signoff</div>
+                        <div class='homemark'>Mark</div>
+
+                        <div class="attndnce" *ngFor="let homework of StudModel;let i=index;">
+                            <div class="review_attdnce">
+                                <img *ngIf="homework.stdImage==''" src="{{ImgUrl}}">
+                                <img *ngIf="homework.stdImage!=''" src="{{Url+homework.stdImage}}">
+                                <h6>{{homework.studentName}}</h6>
+                            </div>
+
+                            <!-- ./attndnce_view -->
+                            <div class="review_attdnce_icons">
+                                <ul>
+                                    <li>
+                                        <a *ngIf="homework.parentAttachment==''" href="javascript:;"></a>
+                                        <a *ngIf="homework.parentAttachment!=''" class="fa fa-file" (click)="getParentAttachment(homework.stdHomeworkId)"></a>
+                                    </li>
+                                    <li>
+                                        <a *ngIf="pLists.indexOf('Input homework comments')>-1" (click)="stdComment(homework.studentId,homework.stdHomeworkId,homework.studentName)" data-toggle="modal" data-target="#transport"><i
+                                                class="fa fa-commenting"></i>
+                                        </a>
+                                        <a *ngIf="pLists.indexOf('Input homework comments')==-1" href="javascript:;" (click)="openSnackBar('You have no permission to input comment', 'Close')"><i
+                                                class="fa fa-commenting"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <label class="chkbx_box">
+                                            <input type="checkbox"  disabled name="sign_{{_id}}" [(ngModel)]="homework.parentSignOff">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <li style="margin-right: -7%;">
+                                        <span class="marks-tx">
+                                            <input type="text" placeholder="" name="mark_{{_id}}"
+                                                value="{{homework.mark}}" [(ngModel)]="homework.mark">
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- ./attndnce_view_numb -->
+                        </div>
+                        <!-- ./attndnce -->
+                        <div class="popup_p" style="width:300px; margin:auto; margin-top:15px;">
+                            <input *ngIf="pLists.indexOf('Input scores')>-1" type="submit" class="btn" value="Submit Marks" (click)="submitMarks()">
+                            <input *ngIf="pLists.indexOf('Input scores')==-1" type="submit" class="btn" value="Submit Marks" (click)="openSnackBar('You have no permission to input scores', 'Close')">
+                        </div>
+
+                    </div>
+                    <!-- ./my_transport_all -->
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Comment</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <form [formGroup]="commentFrm" (ngSubmit)='sendComment()'>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Type here..." [ngClass]="{'error': submitted && f.commentText.errors}" formControlName="commentText">
+                        </textarea>
+                            <input type="hidden" class="form-control" placeholder="Student" formControlName="studentId">
+                            <input type="hidden" class="form-control" placeholder="Homework" formControlName="homeworkMainId">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Send">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

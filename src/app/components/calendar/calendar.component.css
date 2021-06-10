@@ -1,0 +1,18 @@
+.calendar_main {
+    width: 100%;
+    display: inline-block;
+    border: 2px solid #0687df;
+    background-color: #ffffff;
+}
+
+.t-align {
+    text-align: center;
+}
+
+.cal-day-selected {
+    background-color: pink !important;
+}
+
+.cal-day-open {
+    background: pink !important;
+}

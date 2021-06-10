@@ -1,0 +1,76 @@
+<app-header></app-header>
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/dashboard" class="btn"><i class="fa fa-chevron-left"></i> Back to Home</a>
+                        </div>
+
+                        <div class="transport_title">
+                            <h3>Teacher List</h3>
+                        </div>
+
+                        <div class="selct_class_dropdown">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <select class="form-control" (change)="changeClass($event)" name="classId" [(ngModel)]="model.classId">
+                                        <option value="">Select Class</option>
+                                        <option *ngFor="let class of classes; let i = index;" [attr.data-stream]="class.streamId"  [attr.data-index]="i" [attr.data-class]="class.classId" value="{{i}}">{{class.className}} {{class.streamName}}</option>
+                                      </select>
+                                    </div>
+                                </div>
+                                <!-- ./col-lg-6 col-md-6 col-sm-12 col-xs-12 -->
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <select class="form-control" (change)="changeSubject($event.target.value)" name="subjectId" [(ngModel)]="model.subjectId">
+                                        <option value="">Select Subject</option>
+                                        <option *ngFor="let subject of subjects" value="{{subject.sId}}">{{subject.sName}}</option>
+                                      </select>
+                                    </div>
+                                </div>
+                                <!-- ./col-lg-6 col-md-6 col-sm-12 col-xs-12 -->
+                            </div>
+                            <!-- ./row -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText" name="search">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./selct_class_dropdown -->
+
+                        <div class="student_search_all">
+                            <div class="students_prof" *ngFor="let student of students | grdFilter: {studentName: searchText}">
+                                <a (click)="viewProfile(student)">
+                                    <img *ngIf="student.studentImage==''" src="{{defImgSrc}}">
+                                    <img *ngIf="student.studentImage!=''" src="{{Url+student.studentImage}}">
+                                </a>
+                                <h5>{{student.studentName}}</h5>
+                            </div>
+                            <!-- ./students_prof -->
+
+
+                        </div>
+                        <!-- ./student_search_all -->
+
+                    </div>
+                    <!-- ./my_transport -->
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+<app-footer></app-footer>

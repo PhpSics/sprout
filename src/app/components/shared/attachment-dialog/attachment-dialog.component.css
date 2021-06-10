@@ -1,0 +1,22 @@
+.attachmentiframe{
+    width: 100%;
+    height: 85vh;
+}
+.attachment{
+    width: 100%;
+    min-height: 85vh;
+    max-height: 500vh;
+}
+.mat-dialog-content {
+    
+    padding: 0 24px;
+    max-height: 85vh;
+}
+.closeattachment
+{
+    margin-left: 90%;
+    color: white;
+    border: orange;
+    background: orange;
+    font-weight: 700;
+}

@@ -1,0 +1,132 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+  <div class="container-fluid main_bg_white">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <app-side-menu></app-side-menu>
+        <div class="admin_menus js">
+          <div class="my_transport_all bg_admin_one">
+            <div class="transport_title titles_tl">
+              <h3>Notification Settings</h3>
+              <div class="notification-all">
+                <h4>Message Notification</h4>
+                <hr>
+
+                <ul class="notification-list">
+                  <li>
+                    <h5>Notification Tone</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt" [(ngModel)]="!!model.homeworkSettings.notificationTone" (ngModelChange)="model.homeworkSettings.notificationTone = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                  <li>
+                    <h5>Vibrate</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt1" [(ngModel)]="!!model.homeworkSettings.vibrate" (ngModelChange)="model.homeworkSettings.vibrate = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                  <li>
+                    <h5>Popup Notification</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt2" [(ngModel)]="!!model.homeworkSettings.popup" (ngModelChange)="model.homeworkSettings.popup = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                  <li>
+                    <h5>Light</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt3" [(ngModel)]="!!model.homeworkSettings.light" (ngModelChange)="model.homeworkSettings.light = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+              <div class="notification-all">
+                <h4>Event Notification</h4>
+                <hr>
+
+                <ul class="notification-list">
+                  <li>
+                    <h5>Notification Tone</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt4" [(ngModel)]="!!model.eventSettings.notificationTone" (ngModelChange)="model.homeworkSettings.notificationTone = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                  <li>
+                    <h5>Vibrate</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt5" [(ngModel)]="!!model.eventSettings.vibrate" (ngModelChange)="model.homeworkSettings.vibrate = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                  <li>
+                    <h5>Popup Notification</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt6" [(ngModel)]="!!model.eventSettings.popup" (ngModelChange)="model.homeworkSettings.popup = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                  <li>
+                    <h5>Light</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt7" [(ngModel)]="!!model.eventSettings.light" (ngModelChange)="model.homeworkSettings.light = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+              <div class="notification-all">
+                <h4>Homework Notification</h4>
+                <hr>
+
+                <ul class="notification-list">
+                  <li>
+                    <h5>Notification Tone</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt8" [(ngModel)]="!!model.messageSettings.notificationTone" (ngModelChange)="model.messageSettings.notificationTone = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                  <li>
+                    <h5>Vibrate</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt9" [(ngModel)]="!!model.messageSettings.vibrate" (ngModelChange)="model.messageSettings.vibrate = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                  <li>
+                    <h5>Popup Notification</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt10" [(ngModel)]="!!model.messageSettings.popup" (ngModelChange)="model.messageSettings.popup = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                  <li>
+                    <h5>Light</h5>
+                    <label class="switch">
+                      <input type="checkbox" name="nt11" [(ngModel)]="!!model.messageSettings.light" (ngModelChange)="model.messageSettings.light = $event ? 1 : 0" (change)="changeValues($event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+              <!-- <a class="btn btn_goback" href="javascript:;" (click)="navigateBack()"><i class="fa fa-chevron-left"></i> Back</a> -->
+            </div>
+          </div>
+          <!-- ./my_transport_all -->
+        </div>
+        <!-- ./admin_menus -->
+      </div>
+      <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+    </div>
+    <!-- ./row -->
+  </div>
+  <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+
+<app-footer></app-footer>

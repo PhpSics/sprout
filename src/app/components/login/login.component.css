@@ -1,0 +1,331 @@
+html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+      margin:0;
+      padding:0;
+      font-family: 'Raleway', sans-serif;
+      -webkit-animation: fade 1.5s; /* Safari, Chrome and Opera > 12.1 */
+         -moz-animation: fade 1.5s; /* Firefox < 16 */
+          -ms-animation: fade 1.5s; /* Internet Explorer */
+           -o-animation: fade 1.5s; /* Opera < 12.1 */
+              animation: fade 1.5s;
+  }
+  
+  h1, h2, h3, h4, h5, h6, p, a, strong, b, i, ul, ol, li, span {
+      margin:0;
+      padding:0;
+  }
+  
+  .admin_container {
+      width:100%;
+      height:100vh;
+      overflow:hidden;
+      position:relative;
+  }
+  
+  .admin_login {
+      width:35%;
+      height:auto;
+      padding:20px;
+      position:absolute;
+      top:50%;
+      left:50%;
+      overflow:hidden;
+      border-radius:12px;
+      text-align:center;
+      box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+      transform:translate(-50%,-50%);
+  }
+  
+  .admin_logo {
+      margin-bottom:20px;
+  }
+  
+  .admin_logo img {
+      margin:auto;
+      display:table;
+  }
+  
+  .admin_login h5 {
+      width:100%;
+      font-size:18px;
+      margin-top:15px;
+      margin-bottom:20px;
+      display:inline-block;
+      text-transform:uppercase;
+  }
+  
+  .login_body input[type=text], .login_body input[type=password], .forgot_password input[type=text] {
+      height:44px;
+      border-radius:25px;
+      padding-left:20px;
+      padding-right:20px;
+  }
+  
+  .orange_color {
+      color:#fff;
+      background:#ff7513;
+  }
+  
+  .orange_color:hover {
+      color:#fff;
+      background:#021948;
+  }
+  
+  .btn_full {
+      width:100%;
+      border-radius:25px;
+      padding:10px 0px;
+      font-weight:bold;
+      font-size:16px;
+      text-transform:uppercase;
+      transition:all ease 0.5s;
+  }
+  
+  .login_body a {
+      font-size:14px;
+  }
+  
+  .forgot_password {
+      width: 91%;
+      position: absolute;
+      transition: all ease 1s;
+      transform: translate(110%,-100%);
+  }
+  
+  .show_forgot_password {
+      transform: translate(0%,-100%);
+  }
+  
+  .login_body {
+      transform: translate(0%,0%);
+      transition: all ease 1s;
+  }
+  
+  .hide_login_body {
+      transform: translate(-106%,0%);
+  }
+  
+  .inner_body {
+      background:#f0f0f0;
+  }
+  
+  .main_container {
+      width:100%;
+      height:100vh;
+  }
+  
+  .sidemenu {
+      width:20%;
+      height:100%;
+      float:left;
+      overflow:auto;
+      background:#fff;
+      position:relative;
+      box-shadow:5px 0px 15px rgba(0,0,0,0.1);
+  }
+  
+  .content_body {
+      width:calc(100% - 20%);
+      height:100vh;
+      overflow:auto;
+      padding:0px 30px 30px 30px;
+  }
+  
+  .sidemenu_logo {
+      width:100%;
+      display:block;
+      padding:15px;
+      /*--border-bottom:1px solid #efefef;--*/
+  }
+  
+  .sidemenu_logo img {
+      width:150px;
+      margin:auto;
+      display:table;
+  }
+  
+  .sidemenu_btns {
+      margin:0;
+      padding:0;
+      width:100%;
+      background:#ff7513;
+  }
+  
+  .sidemenu_btns li {
+      width:100%;
+      display:inline-block;
+      font-size: 15px;
+  }
+  
+  .sidemenu_btns li a {
+      width:100%;
+      color:#fff;
+      display:inline-block;
+      padding:10px 20px;
+      transition:all ease 0.5s;
+      border-bottom:1px solid #f36907;
+  }
+  
+  .sidemenu_btns li a:hover {
+      text-decoration:none;
+      background:#ce5e0e;
+  }
+  
+  .sidemenu_btns li a i {
+      width:22px;
+  }
+  
+  .mobile_menu {
+      display:none;
+      float:right;
+      cursor:pointer;
+      padding: 6px 12px;
+      border-radius: 4px;
+      margin-right: 18px;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(0%,-50%);
+      border: 1px solid #9c9c9c;
+      transition:all ease 0.5s;
+      -webkit-user-select: none;  /* Chrome all / Safari all */
+        -moz-user-select: none;     /* Firefox all */
+       -ms-user-select: none;      /* IE 10+ */
+        user-select: none;          /* Likely future */   
+  }
+  
+  .mobile_menu i {
+      color:#9c9c9c;
+      font-size:35px;
+  }
+  
+  .mobile_menu:hover {
+      background:#eee;
+  }
+  
+  .top_bar {
+      width:100%;
+      height:60px;
+      background:#fff;
+  }
+  
+  
+  /*---------------------------------*/
+  /*---------- Media Queries --------*/
+  /*---------------------------------*/
+  @media (max-width:992px){
+      .admin_login {
+          width:60%;
+      }
+      
+      .sidemenu {
+          width:25%;
+      }
+      
+      .content_body {
+          width:calc(100% - 25%);
+      }
+  }
+  
+  
+  @media (max-width:767px){
+      .sidemenu {
+          width:100%;
+          height:70px;
+          overflow:inherit;
+      }
+      
+      .content_body {
+          width:100%;
+          height:calc(100% - 70px);
+      }
+      
+      .sidemenu_logo {
+          width:190px;
+          float:left;
+          padding: 4px;
+      }
+      
+      .sidemenu_btns {
+          overflow:auto;
+          position:absolute;
+          top:70px;
+          right:0;
+          left:0;
+      }
+      
+      .mobile_menu {
+          display:block;
+      }
+      
+      .sidemenu_btns {
+          display:none;
+      }
+  }
+  
+  
+  @media (max-width:575px){
+      .admin_login {
+          width:95%;
+      }
+      
+  }
+  
+  
+  @media (max-width:480px){
+  }
+  
+  
+  @media (max-width:320px){
+  }
+  
+  
+  /*---------------------------------*/
+  /*------------ Animation ----------*/
+  /*---------------------------------*/
+  @keyframes fade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+  }
+  
+  /* Firefox < 16 */
+  @-moz-keyframes fade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+  }
+  
+  /* Safari, Chrome and Opera > 12.1 */
+  @-webkit-keyframes fade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+  }
+  
+  /* Internet Explorer */
+  @-ms-keyframes fade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+  }
+  
+  /* Opera < 12.1 */
+  @-o-keyframes fade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+  }
+
+  .error-cls{
+    color: red;
+    padding-bottom: 20px;
+  }
+
+  .error{
+      border:1px solid red;
+  }
+
+  .success-cls{
+    color: green;
+    padding-bottom: 20px;
+    font-size: 15px;
+  }

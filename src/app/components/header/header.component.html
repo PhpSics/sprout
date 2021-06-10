@@ -1,0 +1,61 @@
+<section class="inner_header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <div class="logo">
+                    <a routerLink=""><img class="img-fluid" src="assets/images/logo.png"></a>
+                </div>
+                <!-- ./logo -->
+
+                <div class="menu_mobile" id="toggleMenubar">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <!-- ./menu_mobile -->
+            </div>
+            <!-- ./col-lg-3 col-md-3 col-sm-3 col-xs-12 -->
+
+            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+                <div class="header-rightside">
+                    <div class="menubar inner_menubar">
+                        <ul id="notifications">
+                            <!-- <li>
+                                <a href="javascript:;"><i class="fa fa-envelope-o"></i></a>
+                                <span class="count"><pre>3</pre></span>
+                            </li>
+                            <li>
+                                <a href="javascript:;"><i class="fa fa-bell-o"></i></a>
+                                <span class="count"><pre>3</pre></span>
+                            </li> -->
+
+                        </ul>
+                        <!-- #/notifications -->
+
+
+                        <!-- #/showmenu -->
+                    </div>
+                    <!-- ./menubar -->
+
+                    <div class="user_info">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" data-toggle="dropdown">
+                                <img class="img-fluid" *ngIf="User.teacherImage==''" src="{{defImgSrc}}">
+                                <img class="img-fluid" *ngIf="User.teacherImage!=''" src="{{Url+User.teacherImage}}">
+                                <h5>{{User.teacherName}} <i class="fa fa-caret-down"></i></h5>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="javascript:;" (click)="logout()">Logout</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- ./col-lg-9 col-md-9 col-sm-9 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container -->
+</section>
+<!-- ./main_menu -->

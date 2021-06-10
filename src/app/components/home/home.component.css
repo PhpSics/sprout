@@ -1,0 +1,9 @@
+.disabled {
+    cursor: not-allowed;
+}
+
+.disabled li a {
+    cursor: not-allowed;
+    color: #e8e8e8;
+    background-color: #e8e8e8;
+}

@@ -1,0 +1,9 @@
+<div mat-dialog-content [innerHTML]="message">
+<!-- 
+    <iframe *ngif="message.substr((message.lastIndexOf('.') + 1))=='pdf'" class="attachmentiframe"  src="{{message}}"></iframe>
+    <img class="attachment"  *ngif="message.substr((message.lastIndexOf('.') + 1))=='jpg'"  src="{{message}}" width="100%">
+    <mat-video *ngif="message.substr((message.lastIndexOf('.') + 1))=='mp4'"  class="attachmentiframe" src="{{message}}"></mat-video> -->
+ </div>
+ <div mat-dialog-actions>
+   <button class='closeattachment' mat-button (click)="onNoClick()">Close</button>
+  </div>

@@ -1,0 +1,90 @@
+<div class="sidemenus">
+  <div class="sidemenu_btn" (click)="clickMe()">
+    <span>Menu <i class="fa fa-caret-down"></i></span>
+  </div>
+  <!-- ./sidemenu_btn -->
+  <ul *ngIf="showMe">
+    <li [ngClass]="{'active': homeActive}">
+      <a routerLink="/dashboard">
+        <i class="fa fa-home"></i>
+        <span>Home</span>
+      </a>
+    </li>
+    <li [ngClass]="{'active': stdActive}">
+      <a routerLink="/students">
+        <i class="fa fa-users"></i>
+        <span>My Students</span>
+      </a>
+    </li>
+    <li [ngClass]="{'active': msgActive}">
+      <a routerLink="/messages">
+        <i class="fa fa-envelope"></i>
+        <span>My Messages</span>
+        <span *ngIf="messageCount>0" class="count">
+          <pre>{{messageCount}}</pre></span>
+      </a>
+    </li>
+    <li [ngClass]="{'active': atActive}">
+      <a routerLink="/attendance">
+        <i class="fa fa-child"></i>
+        <span>Student Attendance</span>
+      </a>
+    </li>
+    <li [ngClass]="{'active': hmActive}">
+      <a routerLink="/homework">
+        <i class="fa fa-book"></i>
+        <span>Homework Update</span>
+      </a>
+    </li>
+    <!-- <li [ngClass]="{'active': lrActive}">
+            <a routerLink="/learning">
+                <i class="fa fa-book"></i>
+                <span>Learning & Development</span>
+            </a>
+        </li> -->
+    <!-- <li [ngClass]="{'active': asActive}">
+            <a routerLink="/assessment">
+                <i class="fa fa-table"></i>
+                <span>Assessments</span>
+            </a>
+        </li> -->
+    <!-- <li>
+            <a href="javascript:;">
+                <i class="fa fa-file-text"></i>
+                <span>Curriculum</span>
+            </a>
+        </li> -->
+    <!-- <li [ngClass]="{'active': planActive}">
+            <a routerLink="/teaching-plan">
+                <i class="fa fa-money"></i>
+                <span>My Teaching Plan</span>
+            </a>
+        </li>
+        <li [ngClass]="{'active': timeActive}">
+            <a routerLink="/timetable">
+                <i class="fa fa-calendar-check-o"></i>
+                <span>My Timetable</span>
+            </a>
+        </li> -->
+    <li [ngClass]="{'active': calActive}">
+      <a routerLink="/calendar">
+        <i class="fa fa-calendar"></i>
+        <span>My Calendar</span>
+      </a>
+    </li>
+    <li
+      [ngClass]="{'active': route_url == '/settings' || route_url == '/notification-settings' || route_url == '/change-password' || route_url == '/terms-conditions' || route_url=='/faq'}">
+      <a routerLink="/settings">
+        <i class="fa fa-cogs"></i>
+        <span>Settings</span>
+      </a>
+    </li>
+    <!-- <li>
+            <a href="javascript:;">
+                <i class="fa fa-cogs"></i>
+                <span>Settings</span>
+            </a>
+        </li> -->
+  </ul>
+</div>
+<!-- ./sidemenus -->

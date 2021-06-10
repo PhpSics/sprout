@@ -1,0 +1,116 @@
+<app-header></app-header>
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+
+                <div class="admin_menus">
+                    <div class="selct_class_dropdown">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <select class="form-control" (change)="changeClass($event)" name="classId" [(ngModel)]="model.classId">
+                                    <option value="">Select Class</option>
+                                    <option *ngFor="let class of classes; let i = index;" [attr.data-stream]="class.streamId"  [attr.data-index]="i" [attr.data-class]="class.classId" [attr.data-role]="class.roleId" value="{{i}}">{{class.className}} {{class.streamName}}</option>
+                                  </select>
+                                </div>
+                            </div>
+                            <!-- ./col-lg-6 col-md-6 col-sm-12 col-xs-12 -->
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <select class="form-control" (change)="changeSubject($event.target.value)" name="subjectId" [(ngModel)]="model.subjectId">
+                                    <option value="">Select Subject</option>
+                                    <option *ngFor="let subject of subjects" value="{{subject.sId}}">{{subject.sName}}</option>
+                                  </select>
+                                </div>
+                            </div>
+                            <!-- ./col-lg-6 col-md-6 col-sm-12 col-xs-12 -->
+                        </div>
+                        <!-- ./row -->
+                    </div>
+                    <!-- ./selct_class_dropdown -->
+
+                    <ul [ngClass]="{'disabled': disabled}">
+                        <li>
+                            <a *ngIf="!disabled" routerLink="/attendance">
+                                <i class="fa fa-calendar"></i>
+                                <span>Attendance</span>
+                            </a>
+                            <a *ngIf="disabled" href="javacript:;">
+                                <i class="fa fa-calendar"></i>
+                                <span>Attendance</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="!disabled" routerLink="/messages">
+                                <i class="fa fa-envelope"></i>
+                                <span>Messages</span>
+                            </a>
+                            <a *ngIf="disabled" href="javacript:;">
+                                <i class="fa fa-calendar"></i>
+                                <span>Messages</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="!disabled" routerLink="/homework">
+                                <i class="fa fa-book"></i>
+                                <span>Homework</span>
+                            </a>
+                            <a *ngIf="disabled" href="javacript:;">
+                                <i class="fa fa-calendar"></i>
+                                <span>Homework</span>
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a *ngIf="!disabled" routerLink="/learning">
+                                <i class="fa fa-line-chart"></i>
+                                <span>Learning & Development</span>
+                            </a>
+                            <a *ngIf="disabled" href="javacript:;">
+                                <i class="fa fa-calendar"></i>
+                                <span>Learning & Development</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="!disabled" routerLink="/timetable">
+                                <i class="fa fa-calendar"></i>
+                                <span>Timetable</span>
+                            </a>
+                            <a *ngIf="disabled" href="javacript:;">
+                                <i class="fa fa-calendar"></i>
+                                <span>Timetable</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="!disabled" routerLink="/teaching-plan">
+                                <i class="fa fa-building"></i>
+                                <span>Teaching Plan</span>
+                            </a>
+                            <a *ngIf="disabled" href="javacript:;">
+                                <i class="fa fa-calendar"></i>
+                                <span>Teaching Plan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="!disabled" routerLink="/assessment">
+                                <i class="fa fa-file-text"></i>
+                                <span>Assessments</span>
+                            </a>
+                            <a *ngIf="disabled" href="javacript:;">
+                                <i class="fa fa-calendar"></i>
+                                <span>Assessments</span>
+                            </a>
+                        </li> -->
+                    </ul>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+<app-footer></app-footer>

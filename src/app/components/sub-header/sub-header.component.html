@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <select class="form-control" (change)="changeClass($event)" name="classId" [(ngModel)]="model.classId">
+        <option value="">Select Class</option>
+        <option *ngFor="let class of classes; let i = index;" [attr.data-stream]="class.streamId"  [attr.data-index]="i" [attr.data-class]="class.classId" [attr.data-role]="class.roleId" value="{{i}}">{{class.className}} {{class.streamName}}</option>
+      </select>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <select class="form-control" (change)="changeSubject($event.target.value)" name="subjectId" [(ngModel)]="model.subjectId">
+            <option value="">Select Subject</option>
+            <option *ngFor="let subject of subjects" value="{{subject.sId}}">{{subject.sName}}</option>
+          </select>
+    </div>
+</div>

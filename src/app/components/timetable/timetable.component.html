@@ -1,0 +1,91 @@
+<app-header></app-header>
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/dashboard" class="btn"><i class="fa fa-chevron-left"></i> Back to Home</a>
+                        </div>
+
+                        <div class="transport_title">
+                            <h3>Teacher Timetable</h3>
+                        </div>
+
+                        <div class="search_div cls_mngmnt">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <select class="form-control">
+                                  <option>Class</option>
+                                </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <select class="form-control">
+                                  <option>Subject</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table custom_timetable tchr_table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Time</td>
+                                        <td>Mon</td>
+                                        <td>Tue</td>
+                                        <td>Wed</td>
+                                        <td>Thu</td>
+                                        <td>Fri</td>
+                                    </tr>
+                                    <tr>
+                                        <td>09:30 - 10:30</td>
+                                        <td>Eng</td>
+                                        <td>Phy</td>
+                                        <td>Maths</td>
+                                        <td>Bio</td>
+                                        <td>Chem</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10:30 - 11:30</td>
+                                        <td>Eng</td>
+                                        <td>Phy</td>
+                                        <td>Maths</td>
+                                        <td>Bio</td>
+                                        <td>Chem</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11:45 - 12:45</td>
+                                        <td>Eng</td>
+                                        <td>Phy</td>
+                                        <td>Maths</td>
+                                        <td>Bio</td>
+                                        <td>Chem</td>
+                                    </tr>
+                                    <tr>
+                                        <td>02:30 - 03:30</td>
+                                        <td>Eng</td>
+                                        <td>Phy</td>
+                                        <td>Maths</td>
+                                        <td>Bio</td>
+                                        <td>Chem</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+<app-footer></app-footer>

@@ -1,0 +1,72 @@
+.orange_btn
+{
+    color: white;
+    background: orange;
+    border: orange;
+    width: 10%;
+    height: 30px;
+    font-weight: 700;
+    float: right;
+    margin-right: 20px;
+}
+.black_btn
+{
+    color: white;
+    background: black;
+    border: black;
+    width: 10%;
+    height: 30px;
+    font-weight: 700;
+    float: right;
+}
+.fa-file
+{
+    color: #ff7513 !important;
+    
+    cursor: pointer !important;
+}
+.studname{
+    width: 56%;
+    float: left;
+    padding-left: 20px;
+    font-weight: 700;
+}
+.parentattach{
+    width:16%;
+    float: left;
+    font-weight: 700;
+}
+.parentsign{
+    width: 12%;
+    float: left;
+    font-weight: 700;
+}
+.homemark{
+    width: 6%;
+    float: left;
+    font-weight: 700;
+}
+.homecomments{
+    width: 10%;
+    float: left;
+    font-weight: 700;
+  
+}
+.review_attdnce
+{
+    width: 58% !important;
+}
+.review_attdnce_icons {
+    width: 42% !important;
+}
+.wordbreak{
+    word-break: break-all;
+}
+.width30
+{
+    width:30%;
+    float: left;
+}
+.minheight{
+    min-height: 40px;
+}

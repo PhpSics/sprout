@@ -1,0 +1,99 @@
+<app-header></app-header>
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="transport_title titles_tl">
+                            <h3>Chat</h3>
+                        </div>
+
+                        <div class="chat-div" id="openModalButton" data-toggle="modal" data-target="#openModal" (click)="openModal()">
+                            <div class="chat-head-div">
+                                <img *ngIf="ImgSrc==''" src="{{imgUrl}}">
+                                <img *ngIf="ImgSrc!=''" src="{{Url+ImgSrc}}">
+                                <h5>{{chatName}}</h5>
+                            </div>
+                        </div>
+                            <!-- ./chat-head-div -->
+                            <div class="chat-body-div" id="msgcontainer-fluid" #scrollMe>
+                                <div class="chat-text-div" *ngFor="let message of messageNewList" [ngClass]="{'chat-text-mine': message.isAdmin}">
+                                    <div class="chat-userimage-div">
+                                        <img *ngIf="message.image==''" src="{{imgUrl}}">
+                                        <img *ngIf="message.image!=''" src="{{Url+message.image}}">
+                                    </div>
+                                    <div class="chat-txt-detail">
+                                        <h5 *ngIf="!message.isAdmin">{{message.name}}</h5>
+                                        <div class="chat-txtmsg">
+                                            <!-- <p>{{message.message}}</p> -->
+                                            <p [innerHTML]="message.message | linky">{{message.message}}</p>
+
+                                        </div>
+                                        <h6>{{message.createdAt | date:'dd/MM/yyyy h:m a'}}</h6>
+                                    </div>
+                                </div>
+                                <!-- ./chat-text-div -->
+                            </div>
+                            <!-- ./chat-body-div -->
+                            <form *ngIf="chatRoomId!=undefined" [formGroup]="chatForm" (ngSubmit)='sendChat()' (keydown)="keydownSubmit($event)">
+                                <div class="chat-foot-div">
+                                    <input *ngIf="chatType!='comment'" type="text" class="form-control" placeholder="Type here..." [ngClass]="{'error': submitted && f.msgText.errors}" formControlName="msgText">
+                                    <input *ngIf="chatType=='comment'" type="text" class="form-control" placeholder="Type here..." [ngClass]="{'error': submitted && f.commentText.errors}" formControlName="commentText">
+                                    <button style="color: #fe7414; outline: none !important; transform: rotate(70deg); padding-right: 25px;
+                                    width: 20px;
+                                    top: 10px;" class="chat-send"><i class="fa fa-paper-plane"></i></button>
+                                </div>
+                            </form>
+                       
+                        <!-- ./chat-div -->
+
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+        </div>
+    </div>
+
+   
+
+</section>
+<div  id="openModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="openModalLabel" style="display: none;" aria-hidden="true" *ngIf="teachersData" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="margin-bottom: 150px;">
+          
+        <div class="popup" style="margin: 28px;margin-top: 10px;width: 500px;height: auto;">
+            <button style="padding-right: 46px;" type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            <div *ngIf="teachersData" class="chat-head-div" style="width: 430px;">
+                
+                <div style="align-items: center;">
+                   
+                <div style="font-weight: bold;">
+                    <h3>{{chatName}}</h3>
+                   
+                    </div>
+                </div>
+                
+            </div>
+            <div *ngFor="let teacher of teachersData">
+                <div>
+                    <div class="chat-head-div" style="width: 430px;"  >
+                        <img *ngIf="teacher.studentImage==''" src="assets/images/user-default.png">
+                        <img *ngIf="teacher.studentImage!=''" src="{{Url+teacher.studentImage}}">
+                        <h5>{{teacher.studentfName}}</h5>
+                    </div>
+
+
+                </div>
+                                </div>
+<!-- <div>
+    <h5 *ngIf="!teacher"> No Students in this Broadcast</h5>
+</div> -->
+
+     </div>
+  
+      </div>
+    </div>
+  </div>
+<app-footer></app-footer>

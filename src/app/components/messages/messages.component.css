@@ -1,0 +1,9 @@
+.msg-title {
+    color: #ff7513;
+    width: 78%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+}.font-bold {
+    font-weight: bold
+    }

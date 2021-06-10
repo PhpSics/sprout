@@ -1,0 +1,48 @@
+<div class="admin_container">
+  <div class="admin_login">
+      <div class="admin_logo">
+          <img src="assets/images/logo.png">
+      </div><!-- ./admin_logo -->
+
+      <div class="login_body" [ngClass]="{'hide_login_body': clickType == 'forgot','show_login_body': clickType == 'login'}">
+          <h5>Sign In</h5>
+          <h6 *ngIf="successMessage" class="success-cls">
+            {{ successMessage }}
+          </h6>
+        <form  [formGroup]="loginForm" (ngSubmit)='login()'>
+          <h6 *ngIf="submitted && errorMessage" class="error-cls">{{errorMessage}}</h6>
+          <div class="form-group">
+            <international-phone-number placeholder="Mobile Number *" [maxlength]="20" [defaultCountry]="countryCode" [required]="true" formControlName="phonenumber" [required]="true" [ngClass]="{ 'error-cls': submitted && f.phonenumber.errors }" required></international-phone-number>
+          </div>
+          <div class="form-group">
+              <input type="password" [ngClass]="{'error': submitted && f.password.errors}" class="form-control" placeholder="Password" formControlName="password">
+          </div>
+          <div class="form-group">
+              <input type="submit" class="btn orange_color btn_full" value="Sign in">
+          </div>
+        </form>
+          <a href="javascript:;" id="forgot_pass" (click)="changeView(1)">Forgot Password?</a>
+      </div><!-- ./login_body -->
+
+      <div class="forgot_password" [ngClass]="{'show_forgot_password': clickType == 'forgot'}">
+          <h5>Reset Password</h5>
+          <!-- <h6 *ngIf="forgotsubmitted && errorForgotMessage" class="error-cls">
+            {{ errorForgotMessage }}
+          </h6> -->
+          <h6 *ngIf="successMessage" class="success-cls">
+            {{ successMessage }}
+          </h6>
+          <form [formGroup]="forgotForm" (ngSubmit)="forgotPassword()">
+          <div class="form-group">
+            <international-phone-number placeholder="Mobile Number *" [maxlength]="20" [defaultCountry]="countryCode" [required]="true" formControlName="phoneNo" [required]="true" [ngClass]="{ 'error-cls': forgotsubmitted && g.phoneNo.errors }" required></international-phone-number>
+
+          </div>
+          <div class="form-group">
+              <input type="submit" class="btn orange_color btn_full" value="Generate Password">
+          </div>
+          </form>
+          <a href="javascript:;" id="login_link" (click)="changeView(0)">Already have an account!</a>
+      </div><!-- ./forgot_password -->
+
+  </div><!-- ./admin_login -->
+</div><!-- ./admin_container -->
