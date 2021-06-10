@@ -1,0 +1,68 @@
+<section class="inner_header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <div class="logo">
+                    <a href="#"><img class="img-fluid" src="assets/images/logo.png"></a>
+                </div>
+                <!-- ./logo -->
+
+                <div class="menu_mobile" id="toggleMenubar">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <!-- ./menu_mobile -->
+            </div>
+            <!-- ./col-lg-3 col-md-3 col-sm-3 col-xs-12 -->
+
+            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+                <div class="header-rightside">
+                    <div class="menubar inner_menubar">
+                        <ul id="notifications">
+                            <!-- <li>
+                            <a href="#"><i class="fa fa-envelope-o"></i></a>
+                            <span class="count"><pre>3</pre></span>
+                        </li> -->
+                            <!-- <li>
+                            <a href="#"><i class="fa fa-bell-o"></i></a>
+                            <span class="count"><pre>3</pre></span>
+                        </li> -->
+                            <!-- <li><a href="#"><i class="fa fa-phone"></i></a></li> -->
+                        </ul>
+                        <!-- #/notifications -->
+
+                        <ul id="showmenu">
+                            <!-- <li><a href="#">Solutions</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Company</a></li> -->
+                            <div class="close_btn">
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </ul>
+                        <!-- #/showmenu -->
+                    </div>
+                    <!-- ./menubar -->
+
+                    <div class="user_info">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" data-toggle="dropdown">
+                                <img class="img-fluid" *ngIf="User.userImage==''" src="{{ImgUrl}}">
+                                <img class="img-fluid" *ngIf="User.userImage!=''" src="{{Url+User.userImage}}">
+                                <h5>{{schoolName}} <i class="fa fa-caret-down"></i></h5>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="javascript:;" (click)="logout()">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col-lg-9 col-md-9 col-sm-9 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container -->
+</section>

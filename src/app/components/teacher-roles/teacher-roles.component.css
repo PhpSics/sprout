@@ -1,0 +1,9 @@
+.card-body{
+    padding: 12px 1.25em;
+    border-bottom: 1px solid #f1f1f1;
+}
+.accordion-cls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

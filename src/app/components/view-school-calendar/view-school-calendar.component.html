@@ -1,0 +1,133 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/calendar-event-management" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+
+                        <div class="transport_title titles_tl">
+                            <h3>School Calendar</h3>
+                        </div>
+                        <div class="row text-center bg_white">
+                            <div class="col-md-4">
+                                <div class="btn-group">
+                                    <div class="btn btn-primary" (click)="getAdminEvents(viewDate)" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+                                        Previous
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="btn-group">
+                                    <div class="btn btn-primary" mwlCalendarNextView (click)="getAdminEvents(viewDate)" [view]="view" [(viewDate)]="viewDate">
+                                        Next
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="calendar_main">
+                            <mwl-calendar-month-view [events]="events" [viewDate]="viewDate" (dayClicked)="dayClicked($event.day)">
+                            </mwl-calendar-month-view>
+                        </div>
+                        <!-- <img src="https://jquery-plugins.net/image/plugin/jquery-simple-event-calendar.png" width="100%"> -->
+                        <div *ngIf="ShowTable" class="table-responsive">
+                            <table class="table custom_table_one table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Event</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="EventList.length>0">
+                                    <tr *ngFor="let Event of EventList">
+                                        <td>
+                                            <div class="table-event">
+                                                {{calEvents[Event.title].eventTitle}}
+                                                <a class="curs-p" href="javascript:;" (click)="getEvent(Event.title)" data-toggle="modal" data-target="#eventtransport">View More</a>
+                                            </div>
+                                        </td>
+                                        <td>{{Event.start | date}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="EventList.length==0">
+                                    <tr>
+                                        <td colspan="2">No Events</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- ./container -->
+                </div>
+            </div>
+            <!-- ./admin_menus -->
+        </div>
+        <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+    </div>
+    <!-- ./row -->
+
+</section>
+<!-- ./inner_cont_body -->
+
+<!----EVENT VIEW-->
+<div id="eventtransport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Event Details</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <div class="form-group">
+                        <div class="img_prvw">
+                            <div class="circle">
+                                <img class="profile-pic" *ngIf="eventmoreData.eventImage==''" [src]="imgUrls" height="200">
+                                <img class="profile-pic" *ngIf="eventmoreData.eventImage!=''" src="{{Url+eventmoreData.eventImage}}" height="200">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Event</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventTitle}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventDate | date:'dd-MM-yyyy'}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Start Time</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventStarttime | date:'h:mm a'}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>End Time</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventEndtime | date:'h:mm a'}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventDescription}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventLocation}}" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-footer></app-footer>

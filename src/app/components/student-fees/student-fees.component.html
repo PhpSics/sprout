@@ -1,0 +1,289 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/student-profile" class="btn"><i class="fa fa-chevron-left"></i> Back to
+                                Home</a>
+                        </div>
+
+                        <div class="transport_title">
+                            <h3>Student Fees</h3>
+                        </div>
+
+                        <div class="student_profile">
+                            <div class="student_prof_inner">
+                                <div class="student_img">
+                                    <img *ngIf="studentImage==''" src="assets/images/user-default.png">
+                                    <img *ngIf="studentImage!=''" src="{{Url+studentImage}}">
+                                </div>
+                                <!-- ./student_prof_inner -->
+                                <div class="student_details">
+                                    <h2>{{studentName}}</h2>
+                                    <span>Class : {{studentClass}}</span>
+                                </div>
+                                <!-- ./student_details -->
+                            </div>
+                            <!-- ./student_prof_inner -->
+                        </div>
+                        <!-- ./student_profile -->
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <nav>
+                                    <div class="nav nav-tabs custom-nav-tab" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-total-invoice" data-toggle="tab" href="#nav-homework" role="tab" aria-controls="nav-home" aria-selected="true">Total Invoiced</a>
+                                        <a class="nav-item nav-link" id="nav-total-receive" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Total Received</a>
+                                        <a class="nav-item nav-link" id="nav-balanced" data-toggle="tab" href="#nav-balance" role="tab" aria-controls="nav-balance" aria-selected="false">Balance</a>
+                                    </div>
+                                </nav>
+
+                                <div class="tab-content tab-custom-bdy" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-homework" role="tabpanel" aria-labelledby="nav-homework-tab">
+
+                                        <div class="search_div">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <select class="form-control" (change)="changeTerm($event.target.value,$event)" name="termId" [(ngModel)]="model.termId">
+                                                        <option value="">Select Term</option>
+                                                        <option *ngFor="let term of terms"
+                                                            [attr.data-text]="term.termName"
+                                                            [attr.data-tstr]="term.TodtStr"
+                                                            [attr.data-fstr]="term.FromdtStr" value="{{term._id}}">
+                                                            {{term.termName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" value="{{dTotalAmount}}" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="transport_title">
+                                            <h3 *ngIf="isEmpty(fees)">Invoice Number</h3>
+                                            <h3 class="d-flex align-items-center justify-content-between" *ngIf="!isEmpty(fees)">{{fees.invoiceNo}}<button class="btn btn_export" *ngIf="!isEmpty(fees) && fees.feeId.length>0" (click)="exportData('invoice')"><i class="fa fa-download"></i> Export</button>
+                                                <button class="btn btn_export disabled" *ngIf="isEmpty(fees) || fees.feeId.length==0" disabled><i class="fa fa-download"></i> Export</button></h3>
+
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table custom_table_one custom_table_two table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fee Type</th>
+                                                        <th>Fee Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let fee of fees.feeId">
+                                                        <td *ngIf="fee.feeType=='tution'">{{fee.feeName}}</td>
+                                                        <td *ngIf="fee.feeType=='other'">{{fee.groupName}}</td>
+                                                        <td>{{fee.amount}}</td>
+                                                    </tr>
+                                                    <tr class="bg-orange" *ngIf="!isEmpty(fees)">
+                                                        <td>Total Fee</td>
+                                                        <td>{{this.totalAmount}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="isEmpty(fees) || fees.feeId.length==0">
+                                                        <td colspan="2">No Data</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="form-group pad-cls">
+                                            <form [formGroup]="disForm" (ngSubmit)='saveDiscount()'>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">Add Discount
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <ng-multiselect-dropdown [placeholder]="'Select Discount'" [data]="discounts" name="discountId" formControlName="discountId" [settings]="staffSettings" (onSelect)="onItemSelect($event,'staff')" (onSelectAll)="onSelectAll($event,'staff')" (onDeSelectAll)="onDeSelectAll($event,'staff')"
+                                                                (onDeSelect)="onItemDeselect($event,'staff')">
+                                                            </ng-multiselect-dropdown>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="table-responsive">
+                                                    <table class="table custom_table_one custom_table_two table-bordered">
+                                                        <tbody>
+                                                            <tr class="bg-orange">
+                                                                <td>Total Fee Less Discount</td>
+                                                                <td>{{this.discountAmount}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-12 add_student pad-cls" *ngIf="!isEmpty(fees) && fees.paymentId.length==0 && fees.discounts.length==0">
+                                                    <input class="blue-bg" *ngIf="disList.length>0" type="submit" class="btn" value="Submit">
+                                                    <input class="blue-bg" *ngIf="disList.length==0" type="submit" disabled class="btn" value="Submit">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                        <div class="transport_title titles_tl">
+                                            <h3 class="d-flex align-items-center justify-content-between">Payment Info
+                                                <div><button class="btn btn-primary" *ngIf="!isEmpty(fees) && fees.paymentId.length>0" (click)="exportData('receipt')"><i class="fa fa-download"></i> Export</button>
+                                                    <button class="btn btn-primary disabled" *ngIf="isEmpty(fees) || fees.paymentId.length==0" disabled><i class="fa fa-download"></i> Export</button> &nbsp;
+                                                    <a class="btn btn-primary" *ngIf="termId==''" (click)="showAlert()"><i
+                                                        class="fa fa-plus-circle"></i> Add New</a>
+                                                    <a class="btn btn-primary" *ngIf="termId!='' && pPay" (click)="showsAlert()"><i
+                                                            class="fa fa-plus-circle"></i> Add New</a>
+                                                    <a class="btn btn-primary" *ngIf="termId!='' && !pPay" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i> Add New</a></div>
+                                            </h3>
+
+
+
+                                        </div>
+                                        <div class="transport_title">
+                                            <div class="search_div">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <select class="form-control" (change)="changeTerm($event.target.value,$event,3)" name="term2" [(ngModel)]="model.termId">
+                                                                <option value="">Select Term</option>
+                                                                <option *ngFor="let term of terms"
+                                                                    [attr.data-text]="term.termName"
+                                                                    [attr.data-tstr]="term.TodtStr"
+                                                                    [attr.data-fstr]="term.FromdtStr"
+                                                                    value="{{term._id}}">
+                                                                    {{term.termName}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="white-cls">Amount Paid</label>
+                                                            <input class="form-control" value="{{totalPaid}}" readonly />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table class="table custom_table_one custom_table_two table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Receipt No</th>
+                                                            <th>Amount</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let fee of fees.paymentId">
+                                                            <td>{{fee.createdAt | date:'dd-MM-yyyy'}}</td>
+                                                            <td>{{fee.receiptNo}}</td>
+                                                            <td>{{fee.amountPaid}}</td>
+                                                            <td><a href="javascript:;" class="btn btn-light" (click)="openDialog('delete',fee._id)"><i
+                                                                class="fa fa-trash-o"></i></a></td>
+                                                        </tr>
+                                                        <tr *ngIf="isEmpty(fees) || fees.paymentId.length==0">
+                                                            <td colspan="4">No Data</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="nav-balance" role="tabpanel" aria-labelledby="nav-balanced-tab">
+                                        <div class="transport_title">
+                                            <div class="search_div">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <select class="form-control" (change)="changeTerm($event.target.value,$event,2)" name="term3" [(ngModel)]="model.termId">
+                                                                <option value="">Select Term</option>
+                                                                <option *ngFor="let term of terms"
+                                                                    [attr.data-tstr]="term.TodtStr"
+                                                                    [attr.data-fstr]="term.FromdtStr"
+                                                                    [attr.data-text]="term.termName"
+                                                                    value="{{term._id}}">
+                                                                    {{term.termName}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="white-cls">Balance Amount</label>
+                                                            <input class="form-control" value="{{totalBalance}}" readonly />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container -->
+</section>
+<!-- ./inner_cont_body -->
+
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <form [formGroup]="payForm" (ngSubmit)='savePayment()'>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Date*" matInput readonly [matDatepicker]="picker" (click)="picker.open()" [ngClass]="{'error': submitted && f.paidDate.errors}" formControlName="paidDate">
+                            <mat-datepicker #picker></mat-datepicker>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="termName" value="{{termName}}" readonly>
+                            <input type="hidden" class="form-control" formControlName="termId" value="{{termId}}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Amount" [ngClass]="{'error': submitted && f.amountPaid.errors}" formControlName="amountPaid">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Add">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+
+
+<app-footer></app-footer>

@@ -1,0 +1,109 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/tuitionfee" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+
+                        <div class="transport_title titles_tl">
+                            <h3>Fee Management</h3>
+                            <a class="btn btn_goback" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i>
+                Add New</a>
+                        </div>
+
+                        <div class="tab-custom-bdy">
+                            <div class="table-responsive">
+                                <table class="table custom_table_one custom_table_two table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>{{this.className}}</th>
+                                            <th>{{this.termName}}</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let fee of fees">
+                                            <td>{{fee.feeName}}</td>
+                                            <td>{{fee.amount}}</td>
+                                            <td><i class="fa fa-trash curs-p" (click)="openDialog('delete',fee._id)"></i></td>
+                                        </tr>
+                                        <tr class="align-center" *ngIf="fees.length==0">
+                                            <td colspan="3">No Data</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container -->
+</section>
+<!-- ./inner_cont_body -->
+
+<!------------------------------>
+<!-------- Modal popups -------->
+<!------------------------------>
+
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <form [formGroup]="feeForm" (ngSubmit)='saveFee()'>
+                        <div class="form-group">
+                            <!-- <label>Fee Name</label> -->
+                            <input type="text" class="form-control" [ngClass]="{'error': submitted && f.feeName.errors}" placeholder="Fee Name" formControlName="feeName">
+                            <input type="hidden" class="form-control" [ngClass]="{'error': submitted && f.schoolId.errors}" placeholder="" formControlName="schoolId">
+                            <input type="hidden" class="form-control" [ngClass]="{'error': submitted && f.adminId.errors}" placeholder="" formControlName="adminId">
+                            <input type="hidden" class="form-control" value="{{this.termId}}" placeholder="" formControlName="termId">
+                            <input type="hidden" class="form-control" value="{{this.classId}}" placeholder="" formControlName="classId">
+                            <input type="hidden" class="form-control" value="{{this.streamId}}" placeholder="" formControlName="streamId">
+                            <input type="hidden" class="form-control" placeholder="" formControlName="fromName">
+                            <input type="hidden" class="form-control" placeholder="" formControlName="fromImage">
+                            <input type="hidden" class="form-control" placeholder="" formControlName="termName">
+                            <input type="hidden" class="form-control" placeholder="" formControlName="FromdtStr">
+                            <input type="hidden" class="form-control" placeholder="" formControlName="TodtStr">
+                            <input type="hidden" class="form-control" value="" placeholder="" formControlName="classType">
+                        </div>
+                        <div class="form-group">
+                            <!-- <label>Amount</label> -->
+                            <input type="text" class="form-control" [ngClass]="{'error': submitted && f.amount.errors}" placeholder="$100.0" formControlName="amount">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Add">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+<app-footer></app-footer>

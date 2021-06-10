@@ -1,0 +1,87 @@
+<app-header></app-header>
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="rounded_menu">
+                            <ul>
+                                <!-- <li><a routerLink="/class-management">Go Back</a></li> -->
+                                <li><a href="javascript:;" data-toggle="modal" data-target="#eventtransport">Set-Up Homework</a></li>
+                                <li><a routerLink="/list-homework">Review Homework</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<div id="eventtransport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Set Up Homework</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+                <div class="popup_p">
+                    <form [formGroup]="homeworkForm" (ngSubmit)='saveHomework()'>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <select class="form-control" (change)="changeClass($event.target.value)" [ngClass]="{'error': submitted && f.classId.errors}" formControlName="classId">
+                    <option value="">Select Class</option>
+                    <option *ngFor="let cl of class" value="{{cl._id}}">{{cl.className}}</option>
+                  </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" (change)="changeStream($event.target.value)" [ngClass]="{'error': submitted && f.streamId.errors}" formControlName="streamId">
+                    <option value="">Select Stream</option>
+                    <option *ngFor="let stream of streams" value="{{stream._id}}">{{stream.streamName}}</option>
+                  </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" [ngClass]="{'error': submitted && f.subject.errors}" formControlName="subject">
+                <option value="">Select Subject</option>
+                <option *ngFor="let subject of subjects" value="{{subject._id}}">{{subject.subjectName}}</option>
+              </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" [ngClass]="{'error': submitted && f.uploadDate.errors}" placeholder="Upload Date" formControlName="uploadDate" id="uploadDate" [min]="today" matInput [matDatepicker]="picker" (click)="picker.open()" readonly>
+                            <mat-datepicker [startAt]="today" #picker></mat-datepicker>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Topic" [ngClass]="{'error': submitted && f.topic.errors}" formControlName="topic">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Task" [ngClass]="{'error': submitted && f.description.errors}" formControlName="description">
+                        </div>
+                        <div class="form-group">
+                            <input type="file" class="form-control" id="attachment">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" [ngClass]="{'error': submitted && f.homeworkdate.errors}" placeholder="Due Date" formControlName="homeworkdate" id="homeworkdate" matInput [matDatepicker]="picker1" (click)="picker1.open()" readonly [min]="homeworkForm.controls.uploadDate.value">
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </div>
+                        <div *ngIf="spinner">
+                          <mat-spinner style="margin: 12px 40%;" [diameter]="55" class="mat-spinner-color"></mat-spinner>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Add">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

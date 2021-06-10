@@ -1,0 +1,200 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/calendar-event-management" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+
+                        <div class="transport_title titles_tl">
+                            <h3>Calendar & Event Management</h3>
+                            <a class="btn btn_goback" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i>
+                Add New</a>
+                        </div>
+                        <div class="search_div">
+                            <select class="form-control" (change)="getAdminEvents($event.target.value)">
+                                <option value="">Select Term</option>
+                                <option *ngFor="let term of terms" [attr.data-tstr]="term.TodtStr" [attr.data-fstr]="term.FromdtStr"
+                                  value="{{term._id}}">{{term.termName}}</option>
+                              </select>
+                        </div>
+                        <div class="tab-custom-bdy">
+                            <div class="table-responsive">
+                                <table class="table custom_table_one custom_table_two table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Title</th>
+                                            <th>Location</th>
+                                            <th>View more</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let event of events ; let i=index;">
+                                            <td>{{event.eventDate|date :'yyyy-MM-dd'}}</td>
+                                            <td>{{event.eventTitle}}</td>
+                                            <td>{{event.eventLocation}}</td>
+                                            <td><a class="curs-p" href="javascript:;" (click)="getEvent(i)" data-toggle="modal" data-target="#eventtransport">View More</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Event</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <form [formGroup]="termForm" (ngSubmit)='saveEvent()' id="event-Frm">
+                        <div class="form-group">
+                            <div class="img_prvw">
+                                <div class="circle">
+                                    <img class="profile-pic" [src]="imgURL" height="200" *ngIf="imgURL">
+                                </div>
+                                <div class="p-image">
+                                    <span class="upload-button" (click)="file.click()"><i class="fa fa-camera"></i> Add Event Image</span>
+                                    <input #file class="file-upload" id="photo" (change)="preview(file.files)" type="file" accept="image/*" formControlName="eventImages" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Event Title" [ngClass]="{'error': submitted && f.eventTitle.errors}" formControlName="eventTitle">
+                            <input type="hidden" class="form-control" [ngClass]="{'error': submitted && f.schoolId.errors}" placeholder="Facility Category" formControlName="schoolId">
+                            <input type="hidden" class="form-control" formControlName="fromName">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Description" [ngClass]="{'error': submitted && f.eventDescription.errors}" formControlName="eventDescription">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Location" [ngClass]="{'error': submitted && f.eventLocation.errors}" formControlName="eventLocation">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" formControlName="eventTermId" [ngClass]="{'error': submitted && f.eventTermId.errors}">
+                <option value="">Select Term</option>
+                <option *ngFor="let term of terms" value="{{term._id}}">{{term.termName}}</option>
+              </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Date" matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="eventDate" id="start" readonly [ngClass]="{'error': submitted && f.eventDate.errors}">
+                            <mat-datepicker #picker></mat-datepicker>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Start Time" formControlName="eventStarttime" [ngxTimepicker]="picker2" [ngClass]="{'error': submitted && f.eventStarttime.errors}">
+                            <ngx-material-timepicker #picker2></ngx-material-timepicker>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="End Time" formControlName="eventEndtime" [ngxTimepicker]="picker3" [ngClass]="{'error': submitted && f.eventEndtime.errors}">
+                            <ngx-material-timepicker #picker3></ngx-material-timepicker>
+                        </div>
+                        <div class="form-group">
+                            <ng-multiselect-dropdown [placeholder]="'Select Staffs'" [data]="staffs" name="staff" formControlName="staff" [settings]="staffSettings" (onSelect)="onItemSelect($event,'staff')" (onSelectAll)="onSelectAll($event,'staff')" (onDeSelectAll)="onDeSelectAll($event,'staff')"
+                                (onDeSelect)="onItemDeselect($event,'staff')">
+                            </ng-multiselect-dropdown>
+                        </div>
+                        <div class="form-group">
+                            <ng-multiselect-dropdown [placeholder]="'Select Teachers'" [data]="teachers" name="teacher" formControlName="teacher" [settings]="dropdownSettings" (onSelect)="onItemSelect($event,'teacher')" (onSelectAll)="onSelectAll($event,'teacher')" (onDeSelectAll)="onDeSelectAll($event,'teacher')"
+                                (onDeSelect)="onItemDeselect($event,'teacher')">
+                            </ng-multiselect-dropdown>
+                        </div>
+                        <div class="form-group">
+                            <ng-multiselect-dropdown [placeholder]="'Select Classes'" [data]="classes" name="class" formControlName="class" [settings]="dropdownSettings1" (onSelect)="onItemSelect($event,'class')" (onSelectAll)="onSelectAll($event,'class')" (onDeSelectAll)="onDeSelectAll($event,'class')"
+                                (onDeSelect)="onItemDeselect($event,'class')">
+                            </ng-multiselect-dropdown>
+
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Submit">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+<!----EVENT VIEW-->
+<div id="eventtransport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Event Details</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <div class="form-group">
+                        <div class="img_prvw">
+                            <div class="circle">
+                                <img class="profile-pic" *ngIf="eventmoreData.eventImage==''" [src]="imgUrls" height="200">
+                                <img class="profile-pic" *ngIf="eventmoreData.eventImage!=''" src="{{Url+eventmoreData.eventImage}}" height="200">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Event</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventTitle}}">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventDate | date:'dd-MM-yyyy'}}">
+                    </div>
+                    <div class="form-group">
+                        <label>Start Time</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventStarttime | date:'h:mm a'}}">
+                    </div>
+                    <div class="form-group">
+                        <label>End Time</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventEndtime | date:'h:mm a'}}">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventDescription}}">
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" class="form-control" value="{{eventmoreData.eventLocation}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

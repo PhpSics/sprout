@@ -1,0 +1,66 @@
+<app-header></app-header>
+<section class="inner_cont_body">
+  <div class="container-fluid main_bg_white">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <app-side-menu></app-side-menu>
+        <div class="admin_menus">
+          <div class="my_transport_all bg_admin_one">
+            <div class="transport_title titles_tl">
+              <h3>Student Homework</h3>
+            </div>
+
+            <div class="subj_tab" *ngIf="!isEmpty(selHWork)">
+              <div class="subj_task">
+                <h5>{{selHWork.subject.subjectName}}</h5>
+                <h6>{{selHWork.description}}</h6>
+              </div>
+              <div class="subj_sub">
+                <h5>{{selHWork.topic}}</h5>
+              </div>
+            </div>
+            <div class="content_tab" *ngIf="!isEmpty(selHWork)">
+              <div class="subj_tasks">
+                <h5>Parent Sign Off Status</h5>
+                <label class="checkbox_cust checkbx-cut2">
+                  <input type="checkbox" name="sign_1" *ngIf="selHWork.parentSignoff==1" checked disabled>
+                  <input type="checkbox" name="sign_1" *ngIf="selHWork.parentSignoff==0" disabled>
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div class="subj_tasks">
+                <h5>Marks</h5>
+                <span class="marks-tx">
+                  <input type="text" placeholder="0" name="mark_1" [value]="selHWork.mark" readonly>
+                </span>
+              </div>
+            </div>
+
+            <div class="my_msgs">
+            <h5 class="margn-cls">Comments</h5>
+              <div class="my_msg_div list_u" *ngFor="let comment of formatComments">
+                <a href="javascript:;">
+                  <div class="msg_user_info">
+                    <img *ngIf="comment.userImage==''" src="assets/images/user-default.png">
+                    <img *ngIf="comment.userImage!=''" src="{{Url+comment.userImage}}">
+                  </div>
+                  <!-- ./msg_user_info -->
+
+                  <div class="msg_subj">
+                    <ul>
+                      <li class="msg-title">{{comment.userName}}</li>
+                      <li>{{comment.commentText}}</li>
+                    </ul>
+                  </div>
+                </a>
+              </div>              
+              <!-- ./my_msg_div -->
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

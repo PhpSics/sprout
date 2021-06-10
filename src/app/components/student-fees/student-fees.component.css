@@ -1,0 +1,21 @@
+.bg-orange {
+    background-color: #ff7513 !important;
+}
+
+.white-cls {
+    color: white;
+}
+
+.pad-cls {
+    padding: 25px !important;
+}
+
+.blue-bg {
+    background: #0687df !important;
+}
+
+.btn_export {
+    margin-top: 5px;
+    color: #fff;
+    background-color: #0182e3;
+}

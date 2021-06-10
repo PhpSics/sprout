@@ -1,0 +1,66 @@
+.fa-file
+{
+    color: #ff7513 !important;
+    font-size: 20px !important;
+    margin-top: 0px !important;
+    cursor: pointer !important;
+}
+
+.marks-txs input[type=text], .marks-tx input[type=number] {
+    width: 40px;
+    font-size: 16px;
+    outline: none;
+    background: none;
+    box-shadow: none;
+    text-align: center;
+    padding: 0px 8px;
+    border: 2px solid #ff7513;
+}
+.admin_menus>ul>li:nth-child(1) a, .admin_menus ul li:nth-child(2) a {
+    background: #ffffff;
+}
+.studname{
+    width: 56%;
+    float: left;
+    padding-left: 20px;
+    font-weight: 700;
+}
+.parentattach{
+    width:16%;
+    float: left;
+    font-weight: 700;
+}
+.parentsign{
+    width: 12%;
+    float: left;
+    font-weight: 700;
+}
+.homemark{
+    width: 6%;
+    float: left;
+    font-weight: 700;
+}
+.homecomments{
+    width: 10%;
+    float: left;
+    font-weight: 700;
+  
+}
+.review_attdnce
+{
+    width: 58% !important;
+}
+.review_attdnce_icons {
+    width: 42% !important;
+}
+.wordbreak{
+    word-break: break-all;
+}
+.width30
+{
+    width:30%;
+    float: left;
+}
+.minheight{
+    min-height: 40px;
+}

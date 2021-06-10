@@ -1,0 +1,369 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/class-management" class="btn"><i class="fa fa-chevron-left"></i> Back to Home</a>
+                        </div>
+
+                        <div class="transport_title">
+                            <h3>Student List</h3>
+                            <a class="btn btn_goback" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i>
+                Add New</a>
+                        </div>
+
+                        <div class="student_search">
+                            <div class="form-group">
+                                <select class="form-control" (change)="changeClass($event.target.value)">
+                  <option value="">Select Class</option>
+                  <option *ngFor="let class of classes" value="{{class._id}}">{{class.className}}</option>
+                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" (change)="changeStream($event.target.value)">
+                  <option value="">Select Stream</option>
+                  <option *ngFor="let stream of streams" value="{{stream._id}}">{{stream.streamName}}</option>
+                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText" name="search">
+                            </div>
+                        </div>
+                        <!-- ./student_search -->
+
+                        <div class="student_search_all">
+
+                            <div class="students_prof" *ngFor="let student of students | grdFilter: {studentName: searchText}">
+                                <a (click)="viewProfile(student._id,student.studentName,student.studentImage,student.studentClass.className+' '+student.studentStream.streamName,student)">
+                                    <img *ngIf="student.studentImage==''" src="assets/images/user-default.png">
+                                    <img *ngIf="student.studentImage!=''" src="{{Url+student.studentImage}}">
+                                </a>
+                                <h5>{{student.studentName}}</h5>
+                            </div>
+                            <!-- ./students_prof -->
+
+                        </div>
+                        <!-- ./student_search_all -->
+
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container -->
+</section>
+<!-- ./inner_cont_body -->
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtns>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+                <div class="join_community" id="join_comm" *ngIf="!show">
+                    <div class="form-group">
+                        <a href="javascript:;" class="btn class_btn" id="add_stud" (click)="addStudent(true)">Add Student
+              Profile</a>
+                    </div>
+
+                    <div class="form-group">
+                        <a href="javascript:;" class="btn school_btn">Import From Excel</a>
+                    </div>
+                </div>
+
+                <div class="add_student" id="student_form" *ngIf="show">
+                    <div class="set-up-form">
+                        <div class="steps-line">
+                            <div class="step-single active">
+                                Step 1
+                                <div></div>
+                                <p>Student Info</p>
+                            </div>
+                            <div class="step-single" [ngClass]="{ 'active':showSecond || showThird }">
+                                Step 2
+                                <div></div>
+                                <p>Family Info</p>
+                            </div>
+                            <div class="step-single" [ngClass]="{ 'active':showThird }">
+                                Step 3
+                                <div></div>
+                                <p>Other Info</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="form1" *ngIf="showFirst">
+                        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+                            <div class="add_student">
+                                <div class="form-group">
+                                    <div class="student_prof_inner">
+                                        <div class="student_img">
+                                            <img [src]="editimgURL" height="200" *ngIf="editimgURL">
+                                        </div>
+                                        <div class="p-image">
+                                            <span class="upload-button" (click)="ec.click()"><i class="fa fa-camera"></i> Add Profile
+                        Picture</span>
+                                            <input #ec name="sImg" [(ngModel)]="model.sImg" class="file-upload" id="editphoto" (change)="preview(ec.files,'edit')" type="file" accept="image/*" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="First Name *" name="studentfName" [(ngModel)]="model.studentfName" #studentfName="ngModel" [ngClass]="{ 'error': f.submitted && studentfName.invalid }" required>
+                                <input type="hidden" class="form-control" placeholder="First Name *" name="studentSchool" [(ngModel)]="model.studentSchool" #studentSchool="ngModel">
+
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Last Name *" name="studentlName" [(ngModel)]="model.studentlName" #studentlName="ngModel" [ngClass]="{ 'error': f.submitted && studentlName.invalid }" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Student Number" name="studentId" [(ngModel)]="model.studentId">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="UPI (Nemis Number)" name="studentUPI" [(ngModel)]="model.studentUPI">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Birth Certificate Number" name="birthCertNo" [(ngModel)]="model.birthCertNo">
+                            </div>
+                            <div class="form-group">
+                                <input #ref type="text" class="form-control" placeholder="Date of Birth *" name="studentDob" [(ngModel)]="model.studentDob" #studentDob="ngModel" [ngClass]="{ 'error': f.submitted && studentDob.invalid }" required matInput readonly [matDatepicker]="picker"
+                                    (click)="picker.open()" [max]="maxYear" (dateChange)="calculate_age(ref.value)">
+                                <mat-datepicker #picker></mat-datepicker>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Age" name="studentAge" [(ngModel)]="model.studentAge" readonly>
+                            </div>
+                            <div class="form-group">
+                                <div class="gender-field">
+                                    <div>Gender</div>
+
+                                    <div class="gender-radio-field">
+                                        <input type="radio" class="form-control" checked name="gender" [(ngModel)]="model.gender" #gender="ngModel" value="male">
+                                        <span>Male</span>
+                                    </div>
+
+                                    <div class="gender-radio-field">
+                                        <input type="radio" class="form-control" name="gender" [(ngModel)]="model.gender" #gender="ngModel" value="female">
+                                        <span>Female</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Student Nationality" name="Nationality" [(ngModel)]="model.Nationality">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Student Home Country" name="homeCountry" [(ngModel)]="model.homeCountry">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Student Sub Country" name="subCountry" [(ngModel)]="model.subCountry">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Special Needs" name="specialNeeds" [(ngModel)]="model.specialNeeds">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="entryLevel" [(ngModel)]="model.entryLevel" #entryLevel="ngModel" [ngClass]="{ 'error': f.submitted && entryLevel.invalid }" required>
+                  <option value="">Select Entry Level Class*</option>
+                  <option *ngFor="let class of classes" value="{{class.className}}">{{class.className}}</option>
+                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" (change)="changeClassStream($event.target.value)" name="studentClass" [(ngModel)]="model.studentClass" #studentClass="ngModel" [ngClass]="{ 'error': f.submitted && studentClass.invalid }" required>
+                    <option value="">Select Class*</option>
+                    <option *ngFor="let class of classes" value="{{class._id}}">{{class.className}}</option>
+                  </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="studentStream" #studentStream="ngModel" [(ngModel)]="model.studentStream" [ngClass]="{ 'error': f.submitted && studentStream.invalid }" required>
+                  <option value="">Select Stream</option>
+                  <option *ngFor="let stream of Cstreams" value="{{stream._id}}">{{stream.streamName}}
+                  </option>
+                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Mean Grade" name="meanGrade" [(ngModel)]="model.meanGrade">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Address" name="studentAddress" [(ngModel)]="model.studentAddress">
+                            </div>
+                            <div class="exp-cls">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Street Name" name="streetName" [(ngModel)]="model.streetName">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="P.O.BOX" name="poBox" [(ngModel)]="model.poBox">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Estate" name="estate" [(ngModel)]="model.estate">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Town" name="town" [(ngModel)]="model.town">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Home Tel" name="htel" #htel="ngModel" [(ngModel)]="model.htel" pattern="[0-9 ]*" [ngClass]="{ 'error': f.submitted && htel.invalid }">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="add-more">
+                                    <label placeholder="Stream">Add Emergency Contact</label>
+                                    <i *ngIf="model.EmergencyContact.length<3" class="fa fa-plus-circle add-more-btn" (click)="add('contact')"></i>
+                                </div>
+                            </div>
+                            <div class="form-group exp-cls" *ngFor="let word2 of model.EmergencyContact; let in=index">
+                                <div class="add-more">
+                                    <label placeholder="Stream">Contact Info</label>
+                                    <i class="fa fa-minus-circle add-more-btn" (click)="remove('contact',in)"></i>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Contact Name" name="name_{{in}}{{ word2.id }}" [(ngModel)]="word2.name" #einame="ngModel" [ngClass]="{ 'error': f.submitted && einame.invalid }" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Contact Number" name="cnum_{{in}}{{ word2.id }}" [(ngModel)]="word2.number" #cnum="ngModel" [ngClass]="{ 'error': f.submitted && cnum.invalid }" required pattern="[0-9]{10,14}">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Contact Email" name="cemail_{{in}}{{ word2.id }}" [(ngModel)]="word2.email" #cemail="ngModel" [ngClass]="{ 'error': f.submitted && cemail.invalid }" required email>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Relation" name="rel_{{in}}{{ word2.id }}" [(ngModel)]="word2.relation" #relation="ngModel" [ngClass]="{ 'error': f.submitted && relation.invalid }" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn" value="Next">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn_cancel" value="Cancel" id="cancel_inp" (click)="addStudent(false)">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form2" *ngIf="showSecond">
+                        <form name="form1" (ngSubmit)="s.form.valid && onSecondSubmit()" #s="ngForm" novalidate>
+                            <div class="form-group">
+                                <div class="add-more">
+                                    <label placeholder="Stream">Add Parent/Guardian</label>
+                                    <i *ngIf="model.Contact.length<3" class="fa fa-plus-circle add-more-btn" (click)="add('pcontact')"></i>
+                                </div>
+                            </div>
+                            <div class="form-group exp-cls" *ngFor="let word of model.Contact; let in1=index">
+                                <div class="add-more">
+                                    <label placeholder="Stream">Parent/Guardian Info</label>
+                                    <i class="fa fa-minus-circle add-more-btn" *ngIf="in1>0" (click)="remove('pcontact',in1)"></i>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="First Name*" name="pfname_{{in1}}{{ word.id }}" [(ngModel)]="word.fname" #pname="ngModel" [ngClass]="{ 'error': s.submitted && pname.invalid }" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Last Name*" name="plname_{{in1}}{{ word.id }}" [(ngModel)]="word.lname" #plname="ngModel" [ngClass]="{ 'error': s.submitted && plname.invalid }" required>
+                                </div>
+                                <div class="form-group">
+                                    <international-phone-number [(ngModel)]="word.mobile" placeholder="Mobile Number *" [maxlength]="20" [defaultCountry]="countryCode" [required]="true" #mobile="ngModel" name="mobile_{{in1}}{{ word.id }}" [ngClass]="{ 'error-cls': s.submitted && mobile.invalid }"
+                                        required></international-phone-number>
+                                    <!-- <input type="text" class="form-control" placeholder="Mobile Number*"
+                    name="mobile_{{in1}}{{ word.id }}" [(ngModel)]="word.mobile" #mobile="ngModel"
+                    [ngClass]="{ 'error': s.submitted && mobile.invalid }" required pattern="[0-9]{10,14}"> -->
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Identification Number*" name="inum_{{in1}}{{ word.id }}" [(ngModel)]="word.inum" #inum="ngModel" [ngClass]="{ 'error': s.submitted && inum.invalid }" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Address*" name="add_{{in1}}{{ word.id }}" [(ngModel)]="word.paddress" #paddress="ngModel" [ngClass]="{ 'error': s.submitted && paddress.invalid }" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn" value="Next">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn_cancel" value="Back" id="cancel_inp" (click)="back(2)">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form2" *ngIf="showThird">
+                        <form name="form3" (ngSubmit)="t.form.valid && onThirdSubmit()" #t="ngForm" novalidate>
+                            <div class="form-group">
+                                <input type="file" class="form-control" accept="image/*,application/*" #file1 id="attachment">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Date of Application" name="dateofApplication" [(ngModel)]="model.dateofApplication" #dateofApplication="ngModel" matInput readonly [matDatepicker]="picker1" (click)="picker1.open()">
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </div>
+                            <div class="form-group">
+                                <div class="add-more">
+                                    <label placeholder="Stream">Add Allergies</label>
+                                    <i class="fa fa-plus-circle add-more-btn" (click)="add('allergy')"></i>
+                                </div>
+                            </div>
+                            <!-- <div *ngIf="subjs.indexOf(in)>-1"  createRange(subjs[in])> -->
+                            <div class="form-group" *ngFor="let item of model.studAllergies1;let v=index;">
+                                <div class="add-more">
+                                    <input type="text" class="form-control" placeholder="Allergy Info" name="ainfo_{{v}}{{ item.id }}" [(ngModel)]="item.name" #al="ngModel" [ngClass]="{ 'error': t.submitted && al.invalid }" required>
+                                    <i class="fa fa-minus-circle add-more-btn" (click)="remove('allergy',v)"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="add-more">
+                                    <label placeholder="Stream">Add Medication</label>
+                                    <i class="fa fa-plus-circle add-more-btn" (click)="add('medication')"></i>
+                                </div>
+                            </div>
+                            <!-- <div *ngIf="subjs.indexOf(in)>-1"  createRange(subjs[in])> -->
+                            <div class="form-group" *ngFor="let item1 of model.studMedication1;let v1=index;">
+                                <div class="add-more">
+                                    <input type="text" class="form-control" placeholder="Medicine Info" name="minfo_{{v1}}{{ item1.id }}" [(ngModel)]="item1.name" #md="ngModel" [ngClass]="{ 'error': t.submitted && md.invalid }" required>
+                                    <i class="fa fa-minus-circle add-more-btn" (click)="remove('medication',v1)"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="add-more">
+                                    <label placeholder="Stream">Add Other Info</label>
+                                    <i class="fa fa-plus-circle add-more-btn" (click)="add('aData')"></i>
+                                </div>
+                            </div>
+                            <!-- <div *ngIf="subjs.indexOf(in)>-1"  createRange(subjs[in])> -->
+                            <div class="form-group" *ngFor="let item2 of model.AdditionalData;let v2=index;">
+                                <div class="form-group">
+                                    <div class="add-more">
+                                        <input type="text" class="form-control" placeholder="Key" name="key_{{v2}}{{ item2.id }}" [(ngModel)]="item2.additioinalInfoName" #key="ngModel" [ngClass]="{ 'error': t.submitted && key.invalid }" required>
+                                        <i class="fa fa-minus-circle add-more-btn" (click)="remove('aData',v2)"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control cls-short" placeholder="Value" name="value_{{v2}}{{ item2.id }}" [(ngModel)]="item2.additionalInfoValue" #Kvalue="ngModel" [ngClass]="{ 'error': t.submitted && Kvalue.invalid }" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn" value="Submit">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn_cancel" value="Back" id="cancel_inp" (click)="back(3)">
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+<app-footer></app-footer>

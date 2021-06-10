@@ -1,0 +1,147 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+
+                        <div class="transport_title">
+                            <h3>Generate Report</h3>
+                            <a routerLink="/teacher-performance-report" class="btn btn_goback"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+
+                        <div class="search_div cls_mngmnt">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Teacher Name">
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Class">
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Subject">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-custom-bdy">
+                            <div class="table-responsive">
+                                <table class="table custom_table_one custom_table_two table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Performance Type</th>
+                                            <th>Class Mean</th>
+                                            <th>Highest Score</th>
+                                            <th>Lowest Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Academic</td>
+                                            <td>
+                                                <label class="checkbox_cust">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+
+                                            </td>
+                                            <td>
+                                                <label class="checkbox_cust">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+
+                                            </td>
+                                            <td>
+                                                <label class="checkbox_cust">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Behavioural</td>
+                                            <td>
+                                                <label class="checkbox_cust">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+
+                                            </td>
+                                            <td>
+                                                <label class="checkbox_cust">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+
+                                            </td>
+                                            <td>
+                                                <label class="checkbox_cust">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Extracurricular</td>
+                                            <td>
+                                                <label class="checkbox_cust">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+
+                                            </td>
+                                            <td>
+                                                <label class="checkbox_cust">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+
+                                            </td>
+                                            <td>
+                                                <label class="checkbox_cust">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- ./tab-custom-bdy -->
+
+                        <div class="gen_rpt">
+                            <div class="row">
+                                <div class="col-lg-4 offset-lg-4 col-md-4 offset-md-4 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Start Date">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="End Date">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn" value="Generate Report">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- ./my_transport -->
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+<app-footer></app-footer>

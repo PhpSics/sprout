@@ -1,0 +1,164 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="transport_title titles_tl">
+                            <h3>Class Management</h3>
+                            <a class="btn btn_goback" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i>
+                Add</a>
+                        </div>
+
+                        <div class="search_div cls_mngmnt">
+                            <input type="text" class="form-control" name="search" placeholder="Search" [(ngModel)]="searchText">
+                            <i class="fa fa-search"></i>
+                        </div>
+
+                        <div class="tab-custom-bdy">
+                            <div class="table-responsive">
+                                <table class="table custom_table_one custom_table_two table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Stream</th>
+                                            <th>Number of Student</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let classData of class | grdFilter: {classId: searchText, streamName:searchText,  streamStudents: searchText};">
+                                            <td>{{classData.classId.className}}</td>
+                                            <td>{{classData.streamName}}</td>
+                                            <td>{{classData.streamStudents}}</td>
+                                            <td *ngIf="classData.streamStudents<=0"><a href="javascript:;" class="btn btn-light" (click)="openDialog('delete',classData._id)"><i
+                            class="fa fa-trash-o"></i></a></td>
+                                            <td *ngIf="classData.streamStudents>0"><a href="javascript:;" class="btn btn-light" (click)="openDialogs('delete',classData._id)"><i
+                                class="fa fa-trash-o"></i></a></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+
+<!------------------------------>
+<!-------- Modal popups -------->
+<!------------------------------>
+
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Class Management</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <form [formGroup]="classForm" (ngSubmit)='saveClass()'>
+                        <div class="form-group">
+                            <select class="form-control" [ngClass]="{'error': submitted && f.term.errors}" formControlName="term">
+                <option value="">Select Term</option>
+                <option *ngFor="let term of terms" value="{{term._id}}">{{term.termName}}</option>
+              </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Class Name" [ngClass]="{'error': submitted && f.className.errors}" formControlName="className">
+                            <input type="hidden" class="form-control" formControlName="classTeacher">
+                            <input type="hidden" class="form-control" formControlName="subjectTeacher">
+                            <input type="hidden" class="form-control" formControlName="school">
+                        </div>
+                        <div class="form-group">
+                            <div class="add-more">
+                                <label placeholder="Stream">Stream</label>
+                                <i class="fa fa-plus-circle add-more-btn" (click)="add('stream')"></i>
+                            </div>
+                        </div>
+                        <div class="form-group" formArrayName="stream" *ngFor="let word2 of words2; let in=index">
+                            <div class="add-more">
+                                <input type="text" class="form-control" placeholder="Stream" formControlName="{{in}}">
+                                <i class="fa fa-minus-circle add-more-btn" (click)="remove('stream',in)"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="add-more">
+                                <label placeholder="Stream">Facility Category</label>
+                                <i class="fa fa-plus-circle add-more-btn" (click)="add('fcat')"></i>
+                            </div>
+                        </div>
+                        <div class="form-group" formArrayName="facility" *ngFor="let fcat of fcateg; let in1=index">
+                            <div class="add-more">
+                                <select class="form-control" id="fcat{{in1}}" (change)="changeSubject($event.target.value,'facility',in1)">
+                  <option value="">Select Facility</option>
+                  <option *ngFor="let fval of fcategory" value="{{fval._id}}">{{fval.catagoryName}}</option>
+                </select>
+                                <i class="fa fa-minus-circle add-more-btn" (click)="remove('fcat',in1)"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="add-more">
+                                <label placeholder="Stream">Behavioural Metrics</label>
+                                <i class="fa fa-plus-circle add-more-btn" (click)="add('behaviour')"></i>
+                            </div>
+                        </div>
+                        <div class="form-group" formArrayName="behaviours" *ngFor="let beh of behaviour; let in2=index">
+                            <div class="add-more">
+                                <select class="form-control" (change)="changeSubject($event.target.value,'behaviour',in2)">
+                  <option value="">Select Behavioural Metric</option>
+                  <option *ngFor="let behav of behaviours1" value="{{behav._id}}">{{behav.behaviourName}}</option>
+                </select>
+                                <i class="fa fa-minus-circle add-more-btn" (click)="remove('behaviour',in2)"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="add-more">
+                                <label>Subject</label>
+                                <i class="fa fa-plus-circle add-more-btn" (click)="add('subject')"></i>
+                            </div>
+                        </div>
+                        <div class="form-group" formArrayName="subjects" *ngFor="let sub of subject; let in3=index">
+                            <div class="add-more">
+                                <select class="form-control" (change)="changeSubject($event.target.value,'subject',in3)">
+                  <option value="">Select Subject</option>
+                  <option *ngFor="let sname of subjects1;" value="{{sname._id}}">{{sname.subjectName}}</option>
+                </select>
+                                <i class="fa fa-minus-circle add-more-btn" (click)="remove('subject',in3)"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Add">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+
+<app-footer></app-footer>

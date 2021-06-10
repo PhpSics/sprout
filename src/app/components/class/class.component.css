@@ -1,0 +1,17 @@
+.disabled {
+    cursor: not-allowed;
+}
+
+.disabled li a {
+    cursor: not-allowed;
+    color: #fff !important;
+    background-color: #e8e8e8 !important;
+}
+
+.disabled li a i {
+    color: #fff !important;
+}
+
+.disabled li a span {
+    color: #fff !important;
+}

@@ -1,0 +1,121 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/setup-fee-structure" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+
+                        <div class="transport_title">
+                            <h3>OTHER FEE</h3>
+                            <a class="btn btn_goback" *ngIf="isDisabled()" (click)="showAlert()"><i class="fa fa-plus-circle"></i>
+                Add New</a>
+                            <a class="btn btn_goback" *ngIf="!isDisabled()" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i>
+                  Add New</a>
+                        </div>
+
+                        <div class="search_div">
+                            <input type="text" name="search" class="form-control" placeholder="Search" [(ngModel)]="searchText">
+                            <i class="fa fa-search"></i>
+                        </div>
+
+                        <div class="form-group" style="width: 92%; margin: auto; padding-top: 12px;">
+                            <select class="form-control" (change)="changeTerm($event.target.value,$event)">
+                <option value="">Select Term</option>
+                <option *ngFor="let term of terms" [attr.data-tstr]="term.TodtStr" [attr.data-fstr]="term.FromdtStr"
+                  value="{{term._id}}">{{term.termName}}</option>
+              </select>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+
+                                <div class="tab-content tab-custom-bdy" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-homework" role="tabpanel" aria-labelledby="nav-homework-tab">
+                                        <div class="table-responsive">
+                                            <table class="table custom_table_one custom_table_two table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fee Group</th>
+                                                        <th>Amount</th>
+                                                        <th>Number of Students</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let fee of fees | grdFilter: {groupName: searchText, amount:searchText,  studentCount: searchText};">
+                                                        <td><a class="pointer-cls" href="javascript:;" (click)="showFee(fee._id,fee.groupName,fee.amount,fee.termId.termName,fee.termId.FromdtStr,fee.termId.TodtStr,fee.termId._id)">{{fee.groupName}}</a></td>
+                                                        <td>{{fee.amount}}</td>
+                                                        <td>{{fee.studentCount}}</td>
+                                                        <td><i class="fa fa-trash-o" (click)="openDialog('delete',fee._id)"></i></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <form [formGroup]="feeForm" (ngSubmit)='saveFee()'>
+                        <div class="form-group">
+                            <!-- <label>Fee Name</label> -->
+                            <input type="text" class="form-control" [ngClass]="{'error': submitted && f.groupName.errors}" placeholder="Fee Name" formControlName="groupName">
+                            <input type="hidden" class="form-control" [ngClass]="{'error': submitted && f.schoolId.errors}" placeholder="" formControlName="schoolId">
+                            <input type="hidden" class="form-control" [ngClass]="{'error': submitted && f.adminId.errors}" placeholder="" formControlName="adminId">
+                            <input type="hidden" class="form-control" value="{{this.termId}}" placeholder="" formControlName="termId">
+                        </div>
+                        <div class="form-group">
+                            <!-- <label>Amount</label> -->
+                            <input type="text" class="form-control" [ngClass]="{'error': submitted && f.amount.errors}" placeholder="$100.0" formControlName="amount">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Add">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+<!-- ./inner_cont_body -->
+<app-footer></app-footer>

@@ -1,0 +1,7 @@
+:host{
+    ::ng-deep{
+        .error-cls .form-control {
+            border: 1px solid red !important;
+          }
+        }
+    }      

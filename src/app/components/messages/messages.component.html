@@ -1,0 +1,119 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/class-management" class="btn"><i class="fa fa-chevron-left"></i> Back to Home</a>
+                        </div>
+
+                        <div class="transport_title">
+                            <h3>My Messages</h3>
+                            <a class="btn btn_goback" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i> Add </a>
+                        </div>
+
+                        <div class="my_msgs">
+                            <div class="my_msg_search">
+                                <input type="text" class="form-control" name="search" placeholder="Search" [(ngModel)]="searchText" value="">
+                                <i class="fa fa-search"></i>
+                            </div>
+
+                            <div class="my_msg_div list_u" *ngFor="let message of messageNewList | grdFilter: {uName: searchText, desc:searchText,createdAt:searchText}; let i=index;">
+                                <a href="javascript:;" (click)="goToChatRoom(message.chatRoomId,message.chatSType,message.cName,message.image,i)">
+                                    <div class="msg_user_info">
+                                        <img *ngIf="message.image==''" src="assets/images/user-default.png">
+                                        <img *ngIf="message.image!=''" src="{{Url+message.image}}">
+                                    </div>
+                                    <!-- ./msg_user_info -->
+
+                                    <div class="msg_subj">
+                                        <ul>
+                                            <li class="msg-title">{{message.uName}}</li>
+                                            <li  [ngClass]="{'font-bold' :message.viewStatus === 1}">{{message.desc}}</li>
+                                            <!-- <li >{{message.desc}}</li> -->
+                                        </ul>
+                                    </div>
+                                    <!-- ./msg_subj -->
+                                    <div class="msg_time">
+                                        <h6>{{message.createdAt | date:'yyyy-MM-dd'}}</h6>
+                                    </div>
+                                    <!-- ./msg_time -->
+                                </a>
+                            </div>
+                            <!-- ./my_msg_div -->
+                        </div>
+                        <!-- ./my_msgs -->
+
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div> 
+    <!-- ./container-fluid -->
+</section>
+
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header"> 
+                <h4 class="modal-title">Add Message</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <form [formGroup]="msgForm" (ngSubmit)='sendMessage()' id="event-Frm">
+                        <div class="form-group">
+                            <ng-multiselect-dropdown [placeholder]="'Select Staffs'" [data]="staffs" name="staffId" formControlName="staffId" [settings]="staffSettings" (onSelect)="onItemSelect($event,'staff')" (onSelectAll)="onSelectAll($event,'staff')" (onDeSelectAll)="onDeSelectAll($event,'staff')"
+                                (onDeSelect)="onItemDeselect($event,'staff')">
+                            </ng-multiselect-dropdown>
+                        </div>
+                        <div class="form-group">
+                            <ng-multiselect-dropdown [placeholder]="'Select Teachers'" [data]="teachers" name="teacherId" formControlName="teacherId" [settings]="dropdownSettings" (onSelect)="onItemSelect($event,'teacher')" (onSelectAll)="onSelectAll($event,'teacher')" (onDeSelectAll)="onDeSelectAll($event,'teacher')"
+                                (onDeSelect)="onItemDeselect($event,'teacher')">
+                            </ng-multiselect-dropdown>
+                        </div>
+                        <div class="form-group">
+                            <ng-multiselect-dropdown [placeholder]="'Select Classes'" [data]="classnewLists" name="classId" formControlName="classId" [settings]="dropdownSettings1" (onSelect)="onItemSelect($event,'class')" (onSelectAll)="onSelectAll($event,'class')" (onDeSelectAll)="onDeSelectAll($event,'class')"
+                                (onDeSelect)="onItemDeselect($event,'class')">
+                            </ng-multiselect-dropdown>
+                        </div>
+                        <div class="form-group">
+                            <ng-multiselect-dropdown [placeholder]="'Select Students'" [data]="student" name="studentId"  [settings]="studentSettings" (onSelect)="onItemSelect($event,'student')" (onSelectAll)="onSelectAll($event,'student')" (onDeSelectAll)="onDeSelectAll($event,'student')" formControlName="studentId"
+                                (onDeSelect)="onItemDeselect($event,'student')">
+                            </ng-multiselect-dropdown>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Topic" [ngClass]="{'error': submitted && f.topic.errors}" formControlName="topic">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Description" [ngClass]="{'error': submitted && f.msgText.errors}" formControlName="msgText"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Submit">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+<!-- ./inner_cont_body -->
+<app-footer></app-footer>

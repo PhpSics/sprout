@@ -1,0 +1,9 @@
+.align-cls ul{
+    justify-content: flex-end !important;
+}
+ul.pagination{
+    justify-content: flex-end !important;
+}
+td[colspan]{
+    text-align: center;
+}

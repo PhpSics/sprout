@@ -1,0 +1,9 @@
+.calendar_main {
+    width: 100%;
+    display: inline-block;
+    border: 2px solid #0687df;
+    background-color: #ffffff;
+}
+.cal-month-view .cal-day-badge {
+    background-color: #1e90ff !important;
+}

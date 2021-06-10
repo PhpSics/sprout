@@ -1,0 +1,63 @@
+<app-header></app-header>
+<section class="inner_cont_body">
+  <div class="container-fluid main_bg_white">
+      <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <app-side-menu></app-side-menu>
+                   <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="transport_title titles_tl">
+                            <h3>Chat</h3>
+                        </div>
+                        <div class="chat-div">
+                            <div class="chat-head-div">
+                                <img *ngIf="studentImage==''" src="assets/images/user-default.png">
+                                <img *ngIf="studentImage!=''" src="{{Url+studentImage}}">
+                                <h5>{{studentName}}</h5>
+                            </div>
+                            <div class="my_msg_search" >
+                                <input type="text" class="form-control" name="search" placeholder="Search" [(ngModel)]="searchText" value="" >
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <!-- ./chat-head-div -->
+                            <div class="chat-body-div" id="msgcontainer-fluid" #scrollMe>
+                               
+                                <div  class="chat-text-div" *ngFor="let message of messageNewList.reverse()| grdFilter: {message: searchText}; let i=index;" [ngClass]="{'chat-text-mine': message.isAdmin}">
+                                   
+                                    <div class="chat-userimage-div" *ngIf="message.message">
+                                        <img *ngIf="message.image==''" src="{{imgUrl}}">
+                                        <img *ngIf="message.image!=''" src="{{Url+message.image}}">
+                                    </div>
+                                    <div class="chat-txt-detail">
+                                        <h5 *ngIf="!message.isAdmin">{{message.name}}</h5>
+                                        <div class="chat-txtmsg"  *ngIf="message.message"  >
+                                            
+                                            <p [innerHTML]="message.message | linky">{{message.message}}</p>
+                                        </div>
+                                        <h6 *ngIf="message.message">{{message.createdAt | date:'dd/MM/yyyy h:m a'}}</h6>
+                                    </div>
+                                </div>
+                                <!-- ./chat-text-div -->
+                            </div>
+                            <!-- ./chat-body-div -->
+                            <form  [formGroup]="chatForm" (ngSubmit)='sendChat()' (keyup)="keydownSubmit($event)">
+                                <div class="chat-foot-div">
+                                    
+                                    <input  type="text" class="form-control" [ngClass]="{'error': submitted && f.msgText.errors}" placeholder="Type here..." formControlName="msgText">
+                                   
+                                    <button class="chat-send"style="outline: none !important;color: #fe7414;"><i class="fa fa-paper-plane" ></i></button>
+
+                                    <!-- <button class="chat-attach" data-toggle="modal" data-target="#eventtransport">
+                                      <i class="fa fa-paperclip"></i>
+                                    </button> -->
+                                </div>
+                            </form>
+                        </div>
+                        <!-- ./chat-div -->
+                    </div>
+                </div>
+                  </div>
+                  </div>
+                  </div>
+
+</section>

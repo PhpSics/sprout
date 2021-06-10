@@ -1,0 +1,95 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+  <div class="container-fluid main_bg_white">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <app-side-menu></app-side-menu>
+        <div class="admin_menus">
+          <div class="my_transport_all bg_admin_one">
+            <div class="goBack">
+              <a routerLink="/student-profile" class="btn"><i class="fa fa-chevron-left"></i> Back to
+                Home</a>
+            </div>
+
+            <div class="transport_title">
+              <h3>Student Homework</h3>
+            </div>
+
+            <div class="student_profile">
+              <div class="student_prof_inner">
+                <div class="student_img">
+                  <img *ngIf="studentImage==''" src="assets/images/user-default.png">
+                  <img *ngIf="studentImage!=''" src="{{Url+studentImage}}">
+                </div>
+                <!-- ./student_prof_inner -->
+                <div class="student_details">
+                  <h2>{{studentName}}</h2>
+                  <span>Class : {{studentClass}}</span>
+                </div>
+                <!-- ./student_details -->
+              </div>
+              <!-- ./student_prof_inner -->
+              
+            </div>
+            <div class="tab-content tab-custom-bdy" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-homework" role="tabpanel"
+                aria-labelledby="nav-homework-tab">
+                <div class="table-responsive">                  
+                  <table class="table table-striped custom_table_one custom_table_two table-bordered"
+                    [mfData]="homework" #mf="mfDataTable" [mfRowsOnPage]="50">
+                    <thead>
+                      <tr>
+                        <th>
+                          <mfDefaultSorter by="topic">Topic</mfDefaultSorter>
+                        </th>
+                        <th class="task-cls">
+                          <mfDefaultSorter by="description">Task</mfDefaultSorter>
+                          <th>
+                            <mfDefaultSorter by="homeworkDate">Date</mfDefaultSorter>
+                          <th>
+                        <th>                          
+                          <mfDefaultSorter></mfDefaultSorter>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let hwrk of mf.data;let i=index;">
+                        <ng-container *ngIf="hwrk == -1">
+                          <td colspan="4" align="center">No Data Found</td>
+                        </ng-container>
+                        <ng-container *ngIf="hwrk!=-1">
+                          <td>{{hwrk.topic}}</td>
+                          <td>{{hwrk.description}}</td>
+                          <td>{{hwrk.createdAt | date:'mediumDate'}}</td>
+                          <td><a class="curs-p" href="javascript:;" (click)="viewHomework(i)">View</a></td>                          
+                        </ng-container>
+                      </tr>
+                      <tr *ngIf="mf.data.length==0">
+                        <td colspan="4">No Data</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr class="align-cls">
+                        <td colspan="4">
+                          <mfBootstrapPaginator></mfBootstrapPaginator>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- ./student_profile -->
+          </div>
+        </div>
+        <!-- ./admin_menus -->
+      </div>
+      <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+    </div>
+    <!-- ./row -->
+  </div>
+  <!-- ./container -->
+</section>
+<!-- ./inner_cont_body -->
+<app-footer></app-footer>

@@ -1,0 +1,187 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a href="javascript:;" (click)="navigateBack()" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+                        <div class="transport_title">
+                            <h3>Transport</h3>
+                            <a class="btn btn_goback" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i> Add New</a>
+                        </div>
+
+                        <div class="my_transport">
+                            <a data-toggle="modal" data-target="#transport_show">
+                                <div class="my_transport_img">
+                                    <img src="https://www.diamond.co.uk/images/content-sub-image/number-plates-01.png">
+                                </div>
+                                <!-- ./my_transport_img -->
+                                <div class="my_transport_info">
+                                    <span>School</span>
+                                    <span><i class="fa fa-arrows-h"></i></span>
+                                    <span>Location Name</span>
+                                    <i class="fa fa-chevron-right"></i>
+                                </div>
+                                <!-- ./my_transport_info -->
+                            </a>
+                        </div>
+                        <!-- ./my_transport -->
+
+                        <div class="my_transport">
+                            <a data-toggle="modal" data-target="#transport_show">
+                                <div class="my_transport_img">
+                                    <img src="https://www.diamond.co.uk/images/content-sub-image/number-plates-01.png">
+                                </div>
+                                <!-- ./my_transport_img -->
+                                <div class="my_transport_info">
+                                    <span>School</span>
+                                    <span><i class="fa fa-arrows-h"></i></span>
+                                    <span>Location Name</span>
+                                    <i class="fa fa-chevron-right"></i>
+                                </div>
+                                <!-- ./my_transport_info -->
+                            </a>
+                        </div>
+                        <!-- ./my_transport -->
+
+                        <div class="my_transport">
+                            <a data-toggle="modal" data-target="#transport_show">
+                                <div class="my_transport_img">
+                                    <img src="https://www.diamond.co.uk/images/content-sub-image/number-plates-01.png">
+                                </div>
+                                <!-- ./my_transport_img -->
+                                <div class="my_transport_info">
+                                    <span>School</span>
+                                    <span><i class="fa fa-arrows-h"></i></span>
+                                    <span>Location Name</span>
+                                    <i class="fa fa-chevron-right"></i>
+                                </div>
+                                <!-- ./my_transport_info -->
+                            </a>
+                        </div>
+                        <!-- ./my_transport -->
+
+                        <div class="my_transport">
+                            <a data-toggle="modal" data-target="#transport_show">
+                                <div class="my_transport_img">
+                                    <img src="https://www.diamond.co.uk/images/content-sub-image/number-plates-01.png">
+                                </div>
+                                <!-- ./my_transport_img -->
+                                <div class="my_transport_info">
+                                    <span>School</span>
+                                    <span><i class="fa fa-arrows-h"></i></span>
+                                    <span>Location Name</span>
+                                    <i class="fa fa-chevron-right"></i>
+                                </div>
+                                <!-- ./my_transport_info -->
+                            </a>
+                        </div>
+                        <!-- ./my_transport -->
+
+                    </div>
+                    <!-- ./my_transport -->
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container -->
+</section>
+<!-- ./inner_cont_body -->
+
+<!-- Transport popup -->
+<div id="transport_show" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Route Name</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="transport_popup_show">
+                    <div class="form-group">
+                        <img src="https://www.diamond.co.uk/images/content-sub-image/number-plates-01.png">
+                    </div>
+                    <div class="form-group">
+                        <a href="javascript:;" class="btn location_btn"><i class="fa fa-location-arrow"></i> View Bus Location</a>
+                    </div>
+                    <div class="form-group">
+                        <a routerLink="/transport-attendance" class="btn location_btn"><i class="fa fa-child"></i> Bus Attendance Review</a>
+                    </div>
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport_show -->
+
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Transport</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="transport_popup add_student">
+                    <div class="form-group">
+                        <div class="img_prvw">
+                            <div class="circle">
+                                <img class="profile-pic" src="assets/images/add-image.jpg">
+                            </div>
+                            <div class="p-image">
+                                <span class="upload-button"><i class="fa fa-camera"></i> Add Image</span>
+                                <input class="file-upload" type="file" accept="image/*" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="School Name">
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-arrows-v"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Location">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn" value="Add">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn_cancel" value="Cancel">
+                    </div>
+                </div>
+                <!-- ./transport_popup -->
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+<app-footer></app-footer>

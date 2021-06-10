@@ -1,0 +1,118 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/fee-management" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+
+                        <div class="transport_title">
+                            <h3>VIEW FEE</h3>
+                        </div>
+
+                        <div class="search_div">
+                            <select class="form-control" (change)="changeTerm($event.target.value)">
+                                <option value="">Select Term</option>
+                                <option *ngFor="let term of terms" [attr.data-tstr]="term.TodtStr"
+                                    [attr.data-fstr]="term.FromdtStr" value="{{term._id}}">{{term.termName}}</option>
+                            </select>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+
+                                <div class="tab-content tab-custom-bdy" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-homework" role="tabpanel" aria-labelledby="nav-homework-tab">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped custom_table_one custom_table_two table-bordered" [mfData]="fees" #mf="mfDataTable" [mfRowsOnPage]="50">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <mfDefaultSorter by="feeName">
+                                                                Class Fee
+                                                            </mfDefaultSorter>
+                                                        </th>
+                                                        <th>
+                                                            <mfDefaultSorter by="amount">Amount</mfDefaultSorter>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let fee of mf.data">
+                                                        <td>{{fee.feeName}}</td>
+                                                        <td>{{fee.amount}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="fees.length==0">
+                                                        <td colspan="2">No Data</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr class="align-cls">
+                                                        <td colspan="2">
+                                                            <mfBootstrapPaginator></mfBootstrapPaginator>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped custom_table_one custom_table_two table-bordered" [mfData]="otherfees" #of="mfDataTable" [mfRowsOnPage]="50">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <mfDefaultSorter by="grouplName">Other Fee</mfDefaultSorter>
+                                                        </th>
+                                                        <th>
+                                                            <mfDefaultSorter by="amount">Amount</mfDefaultSorter>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let otherfee of of.data">
+                                                        <td>{{otherfee.groupName}}
+                                                        </td>
+                                                        <td>{{otherfee.amount}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="otherfees.length==0">
+                                                        <td colspan="2">No Data</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr class="align-cls">
+                                                        <td colspan="4" ju>
+                                                            <mfBootstrapPaginator></mfBootstrapPaginator>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+<app-footer></app-footer>

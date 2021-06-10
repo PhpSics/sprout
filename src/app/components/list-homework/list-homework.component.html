@@ -1,0 +1,71 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+  <div class="container-fluid main_bg_white">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <app-side-menu></app-side-menu>
+        <div class="admin_menus">
+          <div class="my_transport_all bg_admin_one">
+            <div class="transport_title titles_tl">
+              <h3>Review Homework</h3>
+            </div>
+
+            <div class="tab-custom-bdy">
+              <form [formGroup]="homeworkForm">
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <select class="form-control" (change)="changeClass($event.target.value)"
+                        formControlName="classId">
+                        <option value="">Select Class</option>
+                        <option *ngFor="let cl of class" value="{{cl._id}}">{{cl.className}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <select class="form-control" (change)="changeStream($event.target.value)"
+                        formControlName="streamId">
+                        <option value="">Select Stream</option>
+                        <option *ngFor="let stream of streams" value="{{stream._id}}">{{stream.streamName}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="table-responsive">
+                <table class="table custom_table_one custom_table_two table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Topic</th>
+                      <th>Task</th>   
+                      <th>Edit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let homework of homeworks ; let i=index;">
+                      <td>{{homework.homeworkuploadDate | date:'dd/MM/yyyy'}}</td>
+                      <td>{{homework.topic}}</td>
+                      <td>{{homework.description}}</td> 
+                      <td><a href="javascript:;" (click)="reviewHomework(homework._id,i)"><i class="fa fa-edit"></i></a>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ./admin_menus -->
+      </div>
+      <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+    </div>
+    <!-- ./row -->
+  </div>
+  <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+
+
+<app-footer></app-footer>

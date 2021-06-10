@@ -1,0 +1,9 @@
+.btn_gobacks {
+    background-color: #ff7513;
+    color: #fff !important;
+    width: 40%;
+}
+
+#content{
+    display: none;
+}

@@ -1,0 +1,478 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/teaching-staff" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+                        <div class="transport_title titles_tl">
+                            <h3>Teacher List</h3>
+                            <a class="btn btn_goback" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i>
+                Add New</a>
+                        </div>
+
+                        <div class="teachr_list">
+                            <div class="teachr_list_single" *ngFor="let teacher of teachers">
+                                <div class="teachr_infos">
+                                    <img *ngIf="teacher.teacherImage==''" src="assets/images/user-default.png">
+                                    <img *ngIf="teacher.teacherImage!=''" src="{{Url+teacher.teacherImage}}">
+                                    <h5>{{teacher.teacherName}}</h5>
+                                </div>
+                                <div class="teachr_controls">
+                                    <a href="javascript:;" (click)="editTeacher(teacher._id)" data-toggle="modal" data-target="#editTransport"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:;" (click)="openDialog('delete',teacher._id)"><i class="fa fa-trash"></i></a>
+                                </div>
+                                <div class="teachr_go">
+                                    <a href="javascript:;" (click)="viewTeacher(teacher._id)"><i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./teachr_list_single -->
+                        </div>
+                    </div>
+                    <!-- ./my_transport_all -->
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+                <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                    <div class="join_community" id="join_comm" *ngIf="!show">
+                        <div class="form-group">
+                            <a href="javascript:;" class="btn class_btn" id="add_stud" (click)="addStudent(true)">Add Teacher
+                Profile</a>
+                        </div>
+
+                        <div class="form-group">
+                            <a href="#" class="btn school_btn">Import From Excel</a>
+                        </div>
+                    </div>
+
+                    <div class="add_student" id="student_form" *ngIf="show">
+                        <div class="form-group">
+                            <div class="student_prof_inner">
+                                <div class="student_img">
+                                    <img class="profile-pic" [src]="imgURL" height="200" *ngIf="imgURL">
+                                </div>
+                                <div class="p-image">
+                                    <span class="upload-button" (click)="file.click()"><i class="fa fa-camera"></i> Add Profile Picture</span>
+                                    <input #file class="file-upload" id="photo" (change)="preview(file.files)" type="file" accept="image/*" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="First Name *" name="teacherfName" [(ngModel)]="model.teacherfName" #teacherfName="ngModel" [ngClass]="{ 'error': f.submitted && teacherfName.invalid }" required>
+                            <input type="hidden" class="form-control" name="teacherSchool" [(ngModel)]="model.teacherSchool" #teacherSchool="ngModel" [ngClass]="{ 'error': f.submitted && teacherSchool.invalid }" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Last Name *" name="teacherlName" [(ngModel)]="model.teacherlName" #teacherlName="ngModel" [ngClass]="{ 'error': f.submitted && teacherlName.invalid }" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="ID No" name="teacherId" [(ngModel)]="model.teacherId" #teacherId="ngModel">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="UPI" name="teacherUPI" [(ngModel)]="model.teacherUPI" #teacherUPI="ngModel">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Birth Certificate Number" name="teacherBirthCertNo" [(ngModel)]="model.teacherBirthCertNo" #teacherBirthCertNo="ngModel" [ngClass]="{ 'error': f.submitted && teacherBirthCertNo.invalid }">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Date of Birth *" matInput readonly [matDatepicker]="picker" (click)="picker.open()" name="teacherDob" [(ngModel)]="model.teacherDob" #teacherDob="ngModel" id="start" [ngClass]="{ 'error': f.submitted && teacherDob.invalid }"
+                                required [max]="maxYear">
+                            <mat-datepicker #picker></mat-datepicker>
+                        </div>
+                        <div class="form-group">
+                            <div class="gender-field">
+                                <div>Gender</div>
+
+                                <div class="gender-radio-field">
+                                    <input type="radio" class="form-control" checked name="teacherGender" [(ngModel)]="model.teacherGender" #teacherGender="ngModel" value="male">
+                                    <span>Male</span>
+                                </div>
+
+                                <div class="gender-radio-field">
+                                    <input type="radio" class="form-control" name="teacherGender" [(ngModel)]="model.teacherGender" #teacherGender="ngModel" value="female">
+                                    <span>Female</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nationality" name="teacherNationality" [(ngModel)]="model.teacherNationality" #teacherNationality="ngModel">
+                        </div>
+                        <div class="form-group">
+                            <international-phone-number [(ngModel)]="model.teacherPhone" placeholder="Mobile Number *" [maxlength]="20" [defaultCountry]="countryCode" [required]="true" #teacherPhone="ngModel" name="teacherPhone" [ngClass]="{ 'error-cls': f.submitted && teacherPhone.invalid }"
+                                required></international-phone-number>
+                            <!-- <input type="text" class="form-control" placeholder="Mobile Number *" name="teacherPhone"
+                [(ngModel)]="model.teacherPhone" #teacherPhone="ngModel" [ngClass]="{ 'error': f.submitted && teacherPhone.invalid }" required pattern="[0-9]{10,14}"> -->
+                        </div>
+                        <div class="form-group">
+                            <input type="file" class="form-control" placeholder="Contract" accept="image/*,application/*" #file1 id="contract">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Start Date *" name="startDate" [(ngModel)]="model.startDate" #startDate="ngModel" matInput readonly [matDatepicker]="picker3" (click)="picker3.open()" [ngClass]="{ 'error': f.submitted && startDate.invalid }"
+                                required>
+                            <mat-datepicker #picker3></mat-datepicker>
+                        </div>
+                        <div class="form-group">
+                            <div class="add-more">
+                                <label placeholder="Stream">Add Experience</label>
+                                <i class="fa fa-plus-circle add-more-btn" (click)="add('exp')"></i>
+                            </div>
+                        </div>
+                        <div class="form-group exp-cls" *ngFor="let word2 of model.teacherExperience; let in=index">
+                            <div class="add-more">
+                                <label placeholder="Stream">Experience Info</label>
+                                <i class="fa fa-minus-circle add-more-btn" (click)="remove('exp',in)"></i>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Institution Name" name="iname_{{ word2.nameValuePairs.id }}" #iname="ngModel" [(ngModel)]="word2.nameValuePairs.institutionName" [ngClass]="{ 'error': f.submitted && iname.invalid }" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Start Date" name="sdate_{{in}}{{ word2.nameValuePairs.id }}" [(ngModel)]="word2.nameValuePairs.experienceStartDate" #ispicker="ngModel" matInput readonly [matDatepicker]="picker1" (click)="picker1.open()"
+                                    [ngClass]="{ 'error': f.submitted && ispicker.invalid }" required>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="End Date" name="edate_{{in}}{{ word2.nameValuePairs.id }}" [(ngModel)]="word2.nameValuePairs.experienceEndDate" matInput readonly [matDatepicker]="picker2" (click)="picker2.open()" [min]="word2.nameValuePairs.experienceStartDate"
+                                    #iepicker="ngModel" [ngClass]="{ 'error': f.submitted && iepicker.invalid }" required>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Teaching Level" name="tlevel_{{in}}{{ word2.nameValuePairs.id }}" #tl="ngModel" [(ngModel)]="word2.nameValuePairs.teachingLevel" [ngClass]="{ 'error': f.submitted && tl.invalid }" required>
+                            </div>
+                            <div class="form-group">
+                                <div class="add-more">
+                                    <label placeholder="Stream">Add Subject Taught</label>
+                                    <i class="fa fa-plus-circle add-more-btn" (click)="add('sub',in)"></i>
+                                </div>
+                            </div>
+                            <!-- <div *ngIf="subjs.indexOf(in)>-1"  createRange(subjs[in])> -->
+                            <div class="form-group" *ngFor="let item of word2.nameValuePairs.experience_Subjects;let v=index;">
+                                <div class="add-more">
+                                    <input type="text" class="form-control" placeholder="Subject" name="isub_{{v}}{{ item.id }}" [(ngModel)]="item.subjects" #sb="ngModel" [ngClass]="{ 'error': f.submitted && sb.invalid }" required>
+                                    <i class="fa fa-minus-circle add-more-btn" (click)="remove('sub',in,v)"></i>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+
+                        <div class="form-group">
+                            <div class="add-more">
+                                <label placeholder="Stream">Add Teaching Roles</label>
+                                <i class="fa fa-plus-circle add-more-btn" (click)="add('trole')"></i>
+                            </div>
+                        </div>
+                        <div class="form-group exp-cls" *ngFor="let trole of model.teacherRole1; let rl=index">
+                            <div class="add-more">
+                                <label placeholder="Stream">Role and Subject</label>
+                                <i class="fa fa-minus-circle add-more-btn" (click)="remove('trole',rl)"></i>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="trole_{{rl}}{{ trole.id }}" [(ngModel)]="trole.Role" #trl="ngModel" [ngClass]="{ 'error': f.submitted && trl.invalid }" required>
+                  <option value="">Select Role</option>
+                  <option *ngFor="let teacherRole of teacherRoles" value="{{teacherRole._id}}">{{teacherRole.roleName}}
+                  </option>
+                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="add-more">
+                                    <label placeholder="Stream">Add Subject</label>
+                                    <i class="fa fa-plus-circle add-more-btn" (click)="add('subj',rl)"></i>
+                                </div>
+                            </div>
+                            <div class="form-group exp-cls" *ngFor="let subRole of trole.additional;let subid=index">
+                                <div class="form-group">
+                                    <div class="add-more">
+                                        <select class="form-control" name="tsub_{{subid}}{{ subRole.id }}" [(ngModel)]="subRole.Subject" #subr="ngModel" [ngClass]="{ 'error': f.submitted && subr.invalid }" required>
+                      <option value="">Select Subject</option>
+                      <option *ngFor="let subject of subjects" value="{{subject._id}}">{{subject.subjectName}}</option>
+                    </select>
+                                        <i class="fa fa-minus-circle add-more-btn" (click)="remove('subj',rl,subid)"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control cls-short" (change)="changeClass($event.target.value,subRole.cnt)" name="tcls_{{subid}}{{ subRole.id }}" [(ngModel)]="subRole.Classs" #tcls="ngModel" [ngClass]="{ 'error': f.submitted && tcls.invalid }" required>
+                    <option value="">Select Class</option>
+                    <option *ngFor="let class of classes" value="{{class._id}}">{{class.className}}</option>
+                  </select>
+                                </div>
+                                <div class="form-group cls-short">
+                                    <select class="form-control" #tstr="ngModel" name="tstream_{{subid}}{{ subRole.id }}" [(ngModel)]="subRole.Stream" [ngClass]="{ 'error': f.submitted && tstr.invalid }" required>
+                    <option value="">Select Stream</option>
+                    <option *ngFor="let stream of streams[subRole.cnt]" value="{{stream._id}}">{{stream.streamName}}</option>
+                  </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="add-more">
+                                <label placeholder="Stream">Add Other Info</label>
+                                <i class="fa fa-plus-circle add-more-btn" (click)="add('info')"></i>
+                            </div>
+                        </div>
+                        <div class="form-group exp-cls" *ngFor="let inf of model.additionalData; let ind=index">
+                            <div class="form-group">
+                                <div class="add-more">
+                                    <input type="text" class="form-control" placeholder="Key" #tk="ngModel" name="key_{{ind}}{{ inf.id }}" [(ngModel)]="inf.additioinalInfoName" [ngClass]="{ 'error': f.submitted && tk.invalid }" required>
+                                    <i class="fa fa-minus-circle add-more-btn" (click)="remove('info',ind)"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control cls-short" #tv="ngModel" placeholder="Data" name="value_{{ind}}{{ inf.id }}" [(ngModel)]="inf.additionalInfoValue" [ngClass]="{ 'error': f.submitted && tv.invalid }" required>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Add">
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="btn btn_cancel" value="Cancel" id="cancel_inp" (click)="addStudent(false)">
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+
+<!----------------EDIT TEACHER FORM---------------------->
+<!-- Transport popup -->
+<div id="editTransport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtns>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+                <form name="form1" (ngSubmit)="fg.form.valid && onEditSubmit()" #fg="ngForm" novalidate>
+
+                    <div class="add_student">
+                        <div class="form-group">
+                            <div class="student_prof_inner">
+                                <div class="student_img">
+                                    <img class="profile-pic pic" [src]="editimgURL" height="200" *ngIf="editimgURL">
+                                </div>
+                                <div class="p-image">
+                                    <span class="upload-button" (click)="ec.click()"><i class="fa fa-camera"></i> Add Profile Picture</span>
+                                    <input #ec class="file-upload" id="editphoto" (change)="preview(ec.files,'edit')" type="file" accept="image/*" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="First Name *" name="teacherfName" [(ngModel)]="editmodel.teacherfName" #teacherfName="ngModel" [ngClass]="{ 'error': fg.submitted && teacherfName.invalid }" required>
+                            <input type="hidden" class="form-control" name="teacherSchool" [(ngModel)]="editmodel.teacherSchool" #teacherSchool="ngModel" [ngClass]="{ 'error': fg.submitted && teacherSchool.invalid }" required>
+                            <input type="hidden" class="form-control" name="teacherPid" [(ngModel)]="editmodel.teacherPid" #teacherPid="ngModel" [ngClass]="{ 'error': fg.submitted && teacherPid.invalid }" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Last Name *" name="teacherlName" [(ngModel)]="editmodel.teacherlName" #teacherlName="ngModel" [ngClass]="{ 'error': fg.submitted && teacherlName.invalid }" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="ID No" name="teacherId" [(ngModel)]="editmodel.teacherId" #teacherId="ngModel">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="UPI" name="teacherUPI" [(ngModel)]="editmodel.teacherUPI" #teacherUPI="ngModel">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Birth Certificate Number" name="teacherBirthCertNo" [(ngModel)]="editmodel.teacherBirthCertNo" #teacherBirthCertNo="ngModel" [ngClass]="{ 'error': fg.submitted && teacherBirthCertNo.invalid }">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Date of Birth *" matInput readonly [matDatepicker]="picker" (click)="picker.open()" [max]="maxYear" name="teacherDob" [(ngModel)]="editmodel.teacherDob" #teacherDob="ngModel" id="start" [ngClass]="{ 'error': fg.submitted && teacherDob.invalid }"
+                                required>
+                            <mat-datepicker [startAt]="editmodel.teacherDob" #picker></mat-datepicker>
+                        </div>
+                        <div class="form-group">
+                            <div class="gender-field">
+                                <div>Gender</div>
+
+                                <div class="gender-radio-field">
+                                    <input type="radio" class="form-control" checked name="teacherGender" [(ngModel)]="editmodel.teacherGender" #teacherGender="ngModel" value="male">
+                                    <span>Male</span>
+                                </div>
+
+                                <div class="gender-radio-field">
+                                    <input type="radio" class="form-control" name="teacherGender" [(ngModel)]="editmodel.teacherGender" #teacherGender="ngModel" value="female">
+                                    <span>Female</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nationality" name="teacherNationality" [(ngModel)]="editmodel.teacherNationality" #teacherNationality="ngModel">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Mobile Number *" name="teacherPhone" [(ngModel)]="editmodel.teacherPhone" readonly #teacherPhone="ngModel" #teacherPhone="ngModel" [ngClass]="{ 'error': fg.submitted && teacherPhone.invalid }" required
+                                pattern="[0-9]{10,14}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" class="form-control" placeholder="Contract" accept="image/*,application/*" #file1 id="editcontract">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Start Date *" name="startDate" [(ngModel)]="editmodel.startDate" #startDate="ngModel" matInput readonly [matDatepicker]="picker3" (click)="picker3.open()" [ngClass]="{ 'error': fg.submitted && startDate.invalid }"
+                                required>
+                            <mat-datepicker [startAt]="editmodel.startDate" #picker3></mat-datepicker>
+                        </div>
+                        <div class="form-group">
+                            <div class="add-more">
+                                <label placeholder="Stream">Add Experience</label>
+                                <i class="fa fa-plus-circle add-more-btn" (click)="addEdit('exp')"></i>
+                            </div>
+                        </div>
+                        <div class="form-group exp-cls" *ngFor="let word2 of editmodel.teacherExperience; let in=index">
+                            <div class="add-more">
+                                <label placeholder="Stream">Experience Info</label>
+                                <i class="fa fa-minus-circle add-more-btn" (click)="editRemove('exp',in)"></i>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Institution Name" name="name_{{in}}{{ word2.nameValuePairs.id }}" [(ngModel)]="word2.nameValuePairs.institutionName" #einame="ngModel" [ngClass]="{ 'error': fg.submitted && einame.invalid }" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Start Date" name="sdate_{{in}}{{ word2.nameValuePairs.id }}" [(ngModel)]="word2.nameValuePairs.experienceStartDate" matInput readonly [matDatepicker]="picker1" (click)="picker1.open()" #eSDate="ngModel"
+                                    [ngClass]="{ 'error': fg.submitted && eSDate.invalid }" required>
+                                <mat-datepicker [startAt]="word2.nameValuePairs.experienceStartDate" #picker1></mat-datepicker>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="End Date" name="edate_{{in}}{{ word2.nameValuePairs.id }}" [(ngModel)]="word2.nameValuePairs.experienceEndDate" matInput readonly [matDatepicker]="picker2" (click)="picker2.open()" [min]="word2.nameValuePairs.experienceStartDate"
+                                    #eEdate="ngModel" [ngClass]="{ 'error': fg.submitted && eEdate.invalid }" required>
+                                <mat-datepicker [startAt]="word2.nameValuePairs.experienceStartDate" #picker2></mat-datepicker>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Teaching Level" name="tlevel_{{in}}{{ word2.nameValuePairs.id }}" [(ngModel)]="word2.nameValuePairs.teachingLevel" #etlevel="ngModel" [ngClass]="{ 'error': fg.submitted && etlevel.invalid }" required>
+                            </div>
+                            <div class="form-group">
+                                <div class="add-more">
+                                    <label placeholder="Stream">Add Subject Taught</label>
+                                    <i class="fa fa-plus-circle add-more-btn" (click)="addEdit('sub',in)"></i>
+                                </div>
+                            </div>
+                            <!-- <div *ngIf="subjs.indexOf(in)>-1"  createRange(subjs[in])> -->
+                            <div class="form-group" *ngFor="let item of word2.nameValuePairs.experience_Subjects;let v=index;">
+                                <div class="add-more">
+                                    <input type="text" class="form-control" placeholder="Subject" name="stlevel_{{v}}_{{ item.id }}" [(ngModel)]="item.subjects" #eSub="ngModel" [ngClass]="{ 'error': fg.submitted && eSub.invalid }" required>
+                                    <i class="fa fa-minus-circle add-more-btn" (click)="editRemove('sub',in,v)"></i>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+
+                        <div class="form-group">
+                            <div class="add-more">
+                                <label placeholder="Stream">Add Teaching Roles</label>
+                                <i class="fa fa-plus-circle add-more-btn" (click)="addEdit('trole')"></i>
+                            </div>
+                        </div>
+                        <div class="form-group exp-cls" *ngFor="let trole of editmodel.teacherRole1; let rl=index">
+                            <div class="add-more">
+                                <label placeholder="Stream">Role and Subject</label>
+                                <i class="fa fa-minus-circle add-more-btn" (click)="editRemove('trole',rl)"></i>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="trole_{{rl}}_{{ trole.id }}" [(ngModel)]="trole.Role" #etrole="ngModel" [ngClass]="{ 'error': fg.submitted && etrole.invalid }" required>
+                  <option value="">Select Role</option>
+                  <option *ngFor="let teacherRole of teacherRoles" value="{{teacherRole._id}}">{{teacherRole.roleName}}
+                  </option>
+                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="add-more">
+                                    <label placeholder="Stream">Add Subject</label>
+                                    <i class="fa fa-plus-circle add-more-btn" (click)="addEdit('subj',rl)"></i>
+                                </div>
+                            </div>
+                            <div class="form-group exp-cls" *ngFor="let subRole of trole.additional;let subid=index;">
+                                <div class="form-group">
+                                    <div class="add-more">
+                                        <select class="form-control" name="tsub_{{subid}}_{{ subRole.id }}" [(ngModel)]="subRole.Subject" #eSubject="ngModel" [ngClass]="{ 'error': fg.submitted && eSubject.invalid }" required>
+                      <option value="">Select Subject</option>
+                      <option *ngFor="let subject of subjects" value="{{subject._id}}">{{subject.subjectName}}</option>
+                    </select>
+                                        <i class="fa fa-minus-circle add-more-btn" (click)="editRemove('subj',rl,subid)"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control cls-short" (change)="changeClass($event.target.value,subRole.cnt)" name="tcls_{{subid}}_{{ subRole.id }}" [(ngModel)]="subRole.Classs" #eClass="ngModel" [ngClass]="{ 'error': fg.submitted && eClass.invalid }" required>
+                    <option value="">Select Class</option>
+                    <option *ngFor="let class of classes" value="{{class._id}}">{{class.className}}</option>
+                  </select>
+                                </div>
+                                <div class="form-group cls-short">
+                                    <select class="form-control" name="tstream_{{subid}}_{{ subRole.id }}" [(ngModel)]="subRole.Stream" #eStream="ngModel" [ngClass]="{ 'error': fg.submitted && eStream.invalid }" required>
+                    <option value="">Select Stream</option>
+                    <option *ngFor="let stream of streams[subRole.cnt]" value="{{stream._id}}">{{stream.streamName}}</option>
+                  </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="add-more">
+                                <label placeholder="Stream">Add Other Info</label>
+                                <i class="fa fa-plus-circle add-more-btn" (click)="addEdit('info')"></i>
+                            </div>
+                        </div>
+                        <div class="form-group exp-cls" *ngFor="let inf of editmodel.additionalData; let ind=index">
+                            <div class="form-group">
+                                <div class="add-more">
+                                    <input type="text" class="form-control" placeholder="Key" name="key_{{ind}}_{{ inf.id }}" [(ngModel)]="inf.additioinalInfoName" #eKey="ngModel" [ngClass]="{ 'error': fg.submitted && eKey.invalid }" required>
+                                    <i class="fa fa-minus-circle add-more-btn" (click)="editRemove('info',ind)"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control cls-short" placeholder="Data" name="value_{{ind}}_{{ inf.id }}" [(ngModel)]="inf.additionalInfoValue" #eVal="ngModel" [ngClass]="{ 'error': fg.submitted && eVal.invalid }" required>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Add">
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="btn btn_cancel" data-dismiss="modal" value="Cancel" id="cancel_inp" (click)="addStudent(false)">
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+<app-footer></app-footer>

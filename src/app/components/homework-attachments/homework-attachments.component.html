@@ -1,0 +1,80 @@
+<app-header></app-header>
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/review-homework" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+
+                        <div class="transport_title titles_tl">
+                            <h3>Review Homework</h3>
+                        </div>
+
+                        <div class="revw_homewrk_div">
+                            <h4>{{selHWork['subject'].subjectName}}
+                                <span>{{selHWork['topic']}}</span>
+                            </h4>
+                            <p class='wordbreak'>{{selHWork['description']}}</p><br>
+                            <div class="minheight">
+                                <p class='width30'><span style='font-weight: 600;'>Upload Date :</span> {{selHWork['homeworkuploadDate'] | date:'dd/MM/yyyy'}}</p>
+                                <p class='width30'><span style='font-weight: 600;'>Due Date :</span> {{selHWork['homeworkdate'] | date:'dd/MM/yyyy'}}</p>
+                                <!-- <p class='width30' style="margin-top: -20px;"><span style='font-weight: 600;'>Attachment :</span>
+                                    <a *ngIf="selHWork['attachment']==''" href="javascript:;"></a>
+                                    <a *ngIf="selHWork['attachment']!=''" style="margin-left: 10%;font-size:40px !important;" class="fa fa-file" (click)="openAttachment(selHWork['attachment'])"></a>
+
+                                </p> -->
+                            </div>
+                        </div>
+
+                        <div class="attndnce" *ngFor="let attach of attachments;let i=index;">
+                            {{attach.substr((attach.lastIndexOf('/') + 1))}}
+                            <button class="black_btn" (click)="download(Url, attach)"> Download </button>
+                            <!-- <button class="black_btn"  > <a href="{{Url+attach}}" download="{{attach.substr((attach.lastIndexOf('/') + 1))}}">Download</a></button> -->
+                            <button class="orange_btn"  (click)="openAttachment(attach)" data-toggle="modal">View</button>
+                            <!-- ./attndnce_view_numb -->
+
+                            <!-- <img *ngIf="attach.substr((attach.lastIndexOf('.') + 1))=='jpg'" src="{{Url+attach}}">
+                            <img *ngIf="attach.substr((attach.lastIndexOf('.') + 1))=='pdf'" src="assets/images/logo.png">
+                            <img *ngIf="attach.substr((attach.lastIndexOf('.') + 1))=='mp4'" src="assets/images/logo.png"> -->
+
+                        </div>
+                        <!-- ./attndnce -->
+
+                    </div>
+                    <!-- ./my_transport_all -->
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <div id="showattachment" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"></h4>
+                            <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+                        </div>
+                        <!-- ./modal-header -->
+                        <div class="modal-body">
+                            <div class="popup_model">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+
+
+<app-footer></app-footer>

@@ -1,0 +1,101 @@
+<div class="sidemenus">
+  <div class="sidemenu_btn" (click)="clickMe()">
+    <span>Menu <i class="fa fa-caret-down"></i></span>
+  </div>
+  <!-- ./sidemenu_btn -->
+  <ul *ngIf="showMe">
+    <li [ngClass]="{'active': route_url == '/home' || homeActive}">
+      <a routerLink="/home">
+        <i class="fa fa-home"></i>
+        <span>Home</span>
+      </a>
+    </li>
+    <li [ngClass]="{'active': route_url == '/school-profile'}">
+      <a routerLink="/school-profile">
+        <i class="fa fa-graduation-cap"></i>
+        <span>School Profile</span>
+      </a>
+    </li>
+    <li [ngClass]="{'active': route_url == '/facility' || route_url == '/view-facility'}">
+      <a routerLink="/facility">
+        <i class="fa fa-building"></i>
+        <span>Facilities Management</span>
+      </a>
+    </li>
+    <li
+      [ngClass]="{'active': route_url == '/calendar-event-management' || route_url == '/event-management' || route_url == '/view-school-calendar' || route_url == '/setup-school-term'}">
+      <a routerLink="/calendar-event-management">
+        <i class="fa fa-calendar"></i>
+        <span>Calendar and Events Management</span>
+      </a>
+    </li>
+    <li [ngClass]="{'active': route_url == '/learning' || route_url == '/general-assessment' || route_url == '/behavioural-matrix' || route_url == '/assessment'
+                            || route_url == '/manage-class' || route_url == '/subjects' || route_url == '/extracurricular-assessment'
+                        || route_url =='/school-curriculum-management'}">
+      <a routerLink="/learning">
+        <i class="fa fa-book"></i>
+        <span>Learning and Development Management</span>
+      </a>
+    </li>
+    <li
+      [ngClass]="{'active': route_url == '/employee-management' || route_url == '/teaching-staff' || route_url == '/teacher-roles' ||  route_url == '/role-management'
+                            || route_url=='/staff-management' || route_url=='/non-teachers' || route_url=='/staff-roles' || empActive}">
+      <a routerLink="/employee-management">
+        <i class="fa fa-users"></i>
+        <span>Employee Management</span>
+      </a>
+    </li>
+    <!-- <li [ngClass]="{'active': route_url == '/timetable'}">
+              <a routerLink="/timetable">
+                  <i class="fa fa-table"></i> 
+                  <span>Timetable Management</span>
+              </a>
+          </li> -->
+    <!-- <li [ngClass]="{'active': route_url == '/school-curriculum-management'}">
+              <a routerLink="/school-curriculum-management">
+                  <i class="fa fa-file-text"></i> 
+                  <span>Curriculum Management</span>
+              </a>
+          </li> -->
+    <li
+      [ngClass]="{'active': route_url == '/fee' || route_url=='/discount' || route_url=='/fee-structure' || route_url=='/otherfee' || route_url =='/tuitionfee' || route_url=='/add-tuitionfee' || route_url == '/manage-fees' || route_url == '/fee-management' || route_url == '/fee-overview'}">
+      <a routerLink="/fee-management">
+        <i class="fa fa-money"></i>
+        <span>Fee Management</span>
+      </a>
+    </li>
+    <li
+      [ngClass]="{'active': route_url == '/students' || route_url =='/student-fees' || route_url == '/student-profile' || route_url == '/student-invoice' || route_url =='/student-homework' || route_url=='/student-attendance'}">
+      <a routerLink="/students">
+        <i class="fa fa-files-o"></i>
+        <span>Admission Management</span>
+      </a>
+    </li>
+    <!-- <li [ngClass]="{'active': route_url == '/transport'}">
+              <a routerLink="/transport">
+                  <i class="fa fa-bus"></i> 
+                  <span>Transport Management</span>
+              </a>
+          </li>
+          <li [ngClass]="{'active': route_url == '/mailbox' || route_url == '/create-mailbox'}">
+              <a routerLink="/mailbox">
+                  <i class="fa fa-envelope"></i> 
+                  <span>Mailbox Management</span>
+              </a>
+          </li> -->
+    <li
+      [ngClass]="{'active': route_url == '/settings' || route_url == '/notification-settings' || route_url == '/change-password' || route_url == '/terms-conditions' || route_url=='/faq'}">
+      <a routerLink="/settings">
+        <i class="fa fa-cogs"></i>
+        <span>Settings</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" (click)="logout()">
+        <i class="fa fa-sign-out"></i>
+        <span>Logout</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<!-- ./sidemenus -->

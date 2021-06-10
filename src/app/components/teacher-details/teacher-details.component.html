@@ -1,0 +1,99 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a href="javascript:;" (click)='backClicked()' class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+                        <div class="transport_title titles_tl">
+                            <h3>Teacher Details</h3>
+                        </div>
+                        <div class="teachr_list">
+                            <div class="teachr_list_single">
+                                <div class="teachr_infos">
+                                    <img *ngIf="teacherData.teacherImage==''" src="assets/images/user-default.png">
+                                    <img *ngIf="teacherData.teacherImage!=''" src="{{Url+teacherData.teacherImage}}">
+                                    <h5>{{teacherData.teacherName}}</h5>
+                                </div>
+                                <!-- <div class="teachr_controls">
+                                <a href="#"><i class="fa fa-pencil"></i></a>
+                                  <a href="#"><i class="fa fa-trash"></i></a>
+                              </div>
+                              <div class="teachr_go">
+                                <a href="#"><i class="fa fa-chevron-right"></i></a>
+                              </div> -->
+                            </div>
+                            <!-- ./teachr_list_single -->
+
+                            <div class="teachr_details">
+                                <div class="tab-custom-bdy">
+                                    <div class="table-responsive">
+                                        <table class="table custom_table_one custom_table_three table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td>DOB</td>
+                                                    <td>{{teacherData.teacherDob}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Gender</td>
+                                                    <td>{{teacherData.teacherGender}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nationality</td>
+                                                    <td>{{teacherData.teacherNationality}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Start Date</td>
+                                                    <td>{{teacherData.startDate}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mobile</td>
+                                                    <td>{{teacherData.teacherPhone}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Staff ID</td>
+                                                    <td>{{teacherData.teacherId}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <table class="table custom_table_one custom_table_two table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Class</th>
+                                                    <th>Stream</th>
+                                                    <th>Subject</th>
+                                                    <th>Role</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let role of teacherData.teacherRole">
+                                                    <td>{{role.Classs.className}}</td>
+                                                    <td>{{role.Stream.streamName}}</td>
+                                                    <td>{{role.Subject.subjectName}}</td>
+                                                    <td>{{role.Role.roleName}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./my_transport_all -->
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container -->
+</section>
+<!-- ./inner_cont_body -->
+<app-footer></app-footer>

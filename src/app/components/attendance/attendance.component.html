@@ -1,0 +1,176 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+  <div class="container-fluid main_bg_white">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <app-side-menu></app-side-menu>
+        <div class="admin_menus">
+          <div class="my_transport_all bg_admin_one">
+            <div class="goBack">
+              <a routerLink="/home" class="btn"><i class="fa fa-chevron-left"></i> Back to Home</a>
+            </div>
+
+            <div class="transport_title titles_tl">
+              <h3>Attendance</h3>
+              <a class="btn btn_goback" (click)="downloadPDF()">Export</a>
+            </div>
+            <div class="row search_div">
+              <div class="col-md-4">
+                <select class="form-control" (change)="changeClass($event.target.value)">
+                  <option value="">Select Class</option>
+                  <option *ngFor="let class of classes" value="{{class._id}}">{{class.className}}</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <select class="form-control" (change)="changeStream($event.target.value)">
+                  <option value="">Select Stream</option>
+                  <option *ngFor="let stream of streams" value="{{stream._id}}">{{stream.streamName}}</option>
+                </select>
+              </div>
+              <div class="col-md-4" *ngIf="show">
+                <select class="form-control" (change)="changeSubject($event.target.value)">
+                  <option value="">Select Subject</option>
+                  <option *ngFor="let subject of subjects" value="{{subject._id}}">{{subject.subjectName}}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- <div class="search_div cls_mngmnt">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <i class="fa fa-search"></i>
+                        </div> -->
+              <div class="graph_s">
+                <div>
+                  <canvas #canvas id="canvas">{{ chart }}</canvas>
+                </div>
+                <!-- <img src="https://venngage-wordpress.s3.amazonaws.com/uploads/2017/08/misleading-graphs-11.png"> -->
+                <div class="graph-info-slider">
+                  <div class="arrow-controls">
+                    <i class="fa fa-chevron-left" (click)="previousClick()"></i>
+                  </div>
+                  <div class="graph-year">
+                    <h4>{{curmonthName}}</h4>
+                    <h6>{{year}}</h6>
+                  </div>
+                  <div class="arrow-controls text-right">
+                    <i class="fa fa-chevron-right" (click)="nextClick()"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- ./graph_s -->
+
+              <div class="small_graph">
+                <div class="graph_txts">
+                  <h5>This Month</h5>
+                  <h4>{{monthly_avg}}%</h4>
+                </div>
+                <div class="graph_img">
+                  <img src="assets/images/graph-one.png" height="150">
+                </div>
+              </div>
+              <div class="small_graph">
+                <div class="graph_txts" style="width: 40%;
+                float: left;
+                padding-top: 50px;
+                text-align: center;">
+                  <h5>Daily Average</h5>
+                  <h4>{{daily_avg}}%</h4>
+                </div>
+                <div class="graph_img">
+                  <img src="assets/images/graph-two.png" height="150">
+                </div>
+              </div>
+              <div id="content" #content>
+                <table style="width: 100%;font-family: Verdana, Geneva, sans-serif;border: none;" border="0">
+                  <tr style="height: 10px;">
+                    <th style="height: 10px;">Type</th>
+                    <th style="height: 10px;">Percentage</th>
+                  </tr>
+                  <tr style="height: 10px;">
+                    <td style="height: 10px;">This Month</td>
+                    <td style="height: 10px;">{{monthly_avg}}%</td>
+                  </tr>
+                  <tr style="height: 10px;">
+                    <td style="height: 10px;">Daily Average</td>
+                    <td style="height: 10px;">{{daily_avg}}%</td>
+                  </tr>
+                </table>
+              </div>
+            
+              <!-- ./small_graph -->
+
+
+              <div class="table-responsive" *ngIf="reasons.length>0">
+                <table class="table custom_table_one custom_table_two table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let reason of reasons;let i=index;">
+                      <td>{{reason.studentId.studentName}}</td>
+                      <td *ngIf="reason.reason!=''"><a class="btn btn_gobacks" href="javascript:;">{{reason.reason}}</a>
+                      </td>
+                      <td *ngIf="reason.reason==''"><a class="btn btn_gobacks" data-toggle="modal"
+                          data-target="#transport" (click)="changeReason(i)">Add Reason </a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
+        </div>
+        <!-- ./admin_menus -->
+      </div>
+      <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+    </div>
+    <!-- ./row -->
+  </div>
+  <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+<div id="transport" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Reason</h4>
+        <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+      </div>
+      <!-- ./modal-header -->
+      <div class="modal-body">
+        <div class="popup_p">
+          <form class="form-horizontal" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <div class="form-group">
+              <select class="form-control" (change)="changeMe($event.target.value)" [(ngModel)]="model.reasons"
+                name="reasonsel" #reasonsel="ngModel" [ngClass]="{ 'error': f.submitted && reasonsel.invalid }"
+                required>
+                <option value="">Select Reason</option>
+                <option>Medical</option>
+                <option>Religious</option>
+                <option>Holiday</option>
+                <option>Planned</option>
+                <option>Field Trip</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input *ngIf="reasonVal=='Other'" type="text" class="form-control" name="reason" #reason="ngModel"
+                [ngClass]="{ 'error': f.submitted && reason.invalid }" [(ngModel)]="model.reason" required
+                placeholder="Other">
+              <input *ngIf="reasonVal!='Other'" type="hidden" class="form-control" name="reason" #reason="ngModel"
+                [(ngModel)]="model.reason" [ngClass]="{ 'error': f.submitted && reason.invalid }">
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btn" value="Add">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

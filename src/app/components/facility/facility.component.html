@@ -1,0 +1,94 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="transport_title titles_tl">
+                            <h3>Facility Management</h3>
+                            <a class="btn btn_goback" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i> Add New</a>
+                        </div>
+
+                        <div class="tab-custom-bdy">
+                            <div class="table-responsive">
+                                <table class="table custom_table_one custom_table_two table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>Number of facilities</th>
+                                            <th>Edit</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let facility of facilities ; let i=index;">
+                                            <td class="while-cls"><a routerLink="/view-facility">{{facility.catagoryName}}</a></td>
+                                            <td>{{facility.facilityNo}}</td>
+                                            <td>
+                                                <a class="curs-p" (click)="viewFacility(facility._id,facility.catagoryName)">View More</a>
+
+                                            </td>
+                                            <td><a class="curs-p" (click)="openDialog('delete',facility._id)">Delete</a></td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+
+<!------------------------------>
+<!-------- Modal popups -------->
+<!------------------------------>
+
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <form [formGroup]="catForm" (ngSubmit)='savefacility()'>
+                        <div class="form-group">
+                            <input type="text" class="form-control" [ngClass]="{'error': submitted && f.catagoryName.errors}" placeholder="Facility Category" formControlName="catagoryName">
+                            <input type="hidden" class="form-control" [ngClass]="{'error': submitted && f.schoolId.errors}" placeholder="Facility Category" formControlName="schoolId">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Add">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+
+<app-footer></app-footer>

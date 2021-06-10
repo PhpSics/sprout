@@ -1,0 +1,14 @@
+<div mat-dialog-content>
+  <div [hidden]="!isLoading" class="loader-cls">
+    <mat-spinner [diameter]="55" class="mat-spinner-color"></mat-spinner>
+  </div>
+  <img class="attachment" *ngIf="ext=='image'" src="{{msg}}" width="100%" (load)="onLoad()">
+  <iframe *ngIf="ext=='frame'" class="attachmentiframe" [src]="msg" (load)="onLoad()"></iframe>
+  <!-- 
+    <iframe *ngif="message.substr((message.lastIndexOf('.') + 1))=='pdf'" class="attachmentiframe"  src="{{message}}"></iframe>
+    <img class="attachment"  *ngif="message.substr((message.lastIndexOf('.') + 1))=='jpg'"  src="{{message}}" width="100%">
+    <mat-video *ngif="message.substr((message.lastIndexOf('.') + 1))=='mp4'"  class="attachmentiframe" src="{{message}}"></mat-video> -->
+</div>
+<div mat-dialog-actions>
+  <button class='closeattachment' mat-button (click)="onNoClick()">Close</button>
+</div>

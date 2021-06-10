@@ -1,0 +1,180 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/employee-management" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+
+                        <div class="transport_title titles_tl">
+                            <h3>Teacher Role Management</h3>
+                            <a class="btn btn_goback" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i>
+                Add</a>
+                        </div>
+
+                        <div class="search_div cls_mngmnt">
+                            <input type="text" class="form-control" name="search" placeholder="Search" [(ngModel)]="searchText">
+                            <i class="fa fa-search"></i>
+                        </div>
+
+                        <div class="tab-custom-bdy">
+                            <div class="table-responsive">
+                                <table class="table custom_table_one custom_table_two table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Profile Name</th>
+                                            <th>No. of Users</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let role of roles | grdFilter: {roleName: searchText, usersNo:searchText};">
+                                            <td (click)="viewRole(role._id)" data-toggle="modal" data-target="#Viewtransport">{{role.roleName}}</td>
+                                            <td (click)="viewRole(role._id)" data-toggle="modal" data-target="#Viewtransport">{{role.usersNo}}</td>
+                                            <td><a href="javascript:;" class="btn btn-light" (click)="openDialog('delete',role._id)"><i
+                            class="fa fa-trash-o"></i> Delete</a></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Role</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                        <div class="form-group">
+                            <input type="text" placeholder="Role" class="form-control" name="userType" [(ngModel)]="model.userType" #userType="ngModel" [ngClass]="{ 'error': f.submitted && userType.invalid }" required />
+                            <input type="hidden" class="form-control" name="schoolId" [(ngModel)]="model.schoolId" #schoolId="ngModel" ngModel="{{schoolId}}" value="{{schoolId}}" />
+                        </div>
+                        <!--Accordion wrapper-->
+                        <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+
+                            <!-- Accordion card -->
+                            <div class="card" *ngFor="let p of permission; let i=index;">
+                                <!-- Card header -->
+                                <div class="card-header" role="tab" [id]="'headingTwo'+i">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" [href]="'#collapseTwo'+i" href="#collapseTwo{{i}}" aria-expanded="false" [attr.aria-controls]="'collapseTwo'+i">
+                                        <h5 class="mb-0">
+                                            {{p.Catagory}} <i class="fa fa-plus rotate-icon pull-right"></i>
+                                        </h5>
+                                    </a>
+                                </div>
+
+                                <!-- Card body -->
+                                <div [id]="'collapseTwo'+i" class="collapse" role="tabpanel" [attr.aria-labelledby]="'headingTwo'+i" data-parent="#accordionEx1">
+                                    <div *ngFor="let pR of p.Permission;let ind = index;" class="card-body">
+                                        <div class="accordion-cls">
+                                            <span>{{pR.permissionName}}</span>
+                                            <input type="checkbox" #{{pR._id}}="ngModel" name="{{pR._id}}" [(ngModel)]="p.Permission[ind].isChecked">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Accordion card -->
+
+
+                        </div>
+                        <!-- Accordion wrapper -->
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Add">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+<!----VIEW TRANSPORT-->
+<!-- ./inner_cont_body -->
+<div id="Viewtransport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Role</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <div class="form-group">
+                        <input type="text" placeholder="Role" readonly class="form-control" value="{{roleName}}" />
+                    </div>
+                    <!--Accordion wrapper-->
+                    <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+
+                        <!-- Accordion card -->
+                        <div class="card" *ngFor="let p of pData.permissionList; let i=index;">
+                            <!-- Card header -->
+                            <div class="card-header" role="tab" [id]="'headingTwos'+i">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx12" [href]="'#collapseTwos'+i" href="#collapseTwos{{i}}" aria-expanded="false" [attr.aria-controls]="'collapseTwos'+i">
+                                    <h5 class="mb-0">
+                                        {{p.catagory}} <i class="fa fa-plus rotate-icon pull-right"></i>
+                                    </h5>
+                                </a>
+                            </div>
+
+                            <!-- Card body -->
+                            <div [id]="'collapseTwos'+i" class="collapse" role="tabpanel" [attr.aria-labelledby]="'headingTwos'+i" data-parent="#accordionEx12">
+                                <div *ngFor="let pR of p.Permission;let ind = index;" class="card-body">
+                                    <div class="accordion-cls">
+                                        <span>{{pR.permissionName}}</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Accordion card -->
+
+
+                    </div>
+                    <!-- Accordion wrapper -->
+
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+<app-footer></app-footer>

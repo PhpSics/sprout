@@ -1,0 +1,106 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/calendar-event-management" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+
+                        <div class="transport_title titles_tl">
+                            <h3>School Terms</h3>
+                            <a class="btn btn_goback" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i> Add New</a>
+                        </div>
+
+                        <div class="tab-custom-bdy">
+                            <div class="table-responsive">
+                                <table class="table custom_table_one custom_table_two table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Term Name</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let term of terms ; let i=index;">
+                                            <td>{{term.termName}}</td>
+                                            <td>{{term.fromDate | date:'dd/MM/yyyy'}}</td>
+                                            <td>{{term.toDate | date:'dd/MM/yyyy'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Calendar Management</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+                <div class="popup_p">
+                    <form [formGroup]="termForm" (ngSubmit)='saveTerm()'>
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" placeholder="Term Name" [ngClass]="{'error': submitted && f.termName.errors}" formControlName="termName">
+                            <input type="hidden" class="form-control" [ngClass]="{'error': submitted && f.schoolId.errors}" placeholder="Facility Category" formControlName="schoolId">
+                        </div>
+                        <div class="form-group">
+                            <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Start Date" class="form-control" formControlName="fromDate" readonly [ngClass]="{'error': submitted && f.fromDate.errors}" (dateChange)="calculateDuration($event,1)" id="pick1">
+                            <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+                            <mat-datepicker #picker></mat-datepicker>
+                            <!-- <input class="form-control" matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="fromDate" [ngClass]="{'error': submitted && f.fromDate.errors}"> 
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker> -->
+                        </div>
+                        <div class="form-group">
+                            <input matInput [matDatepicker]="picker1" (click)="picker1.open()" placeholder="End Date" class="form-control" formControlName="toDate" readonly [ngClass]="{'error': submitted && f.toDate.errors}" [min]="termForm.controls.fromDate.value" id="pick2" (dateChange)="calculateDuration($event,2)">
+                            <!-- <input class="form-control" matInput [matDatepicker]="picker1" placeholder="Choose a date" formControlName="toDate" [ngClass]="{'error': submitted && f.toDate.errors}" [min]="termForm.controls.fromDate.value">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle> -->
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Number of weeks" formControlName="duration" id="duration">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" class="btn" value="Submit">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+
+<app-footer></app-footer>

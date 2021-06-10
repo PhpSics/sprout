@@ -1,0 +1,47 @@
+.cal-month-view .cal-day-badge {
+    display: none !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.table-dot-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.single-dot {
+    display: flex;
+    align-items: center;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: red;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.dot-red {
+    background-color: red;
+}
+
+.dot-green {
+    background-color: green;
+}
+
+.goBackbtn a.btn{
+    background-color:#007bff;
+    color:#fff;
+}
+
+.goBackbtn{
+    float: right;
+}
+
+.titles_tl{
+    position: inherit;
+}

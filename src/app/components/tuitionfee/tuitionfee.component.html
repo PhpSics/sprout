@@ -1,0 +1,41 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="form-group" style="width: 50%; margin: auto; padding-top: 12px;">
+                            <select class="form-control" (change)="changeTerm($event.target.value,$event)">
+                      <option value="">Select Term</option>
+                      <option *ngFor="let term of terms" [attr.data-tstr]="term.TodtStr" [attr.data-fstr]="term.FromdtStr" value="{{term._id}}">{{term.termName}}</option>
+                  </select>
+                        </div>
+                        <div class="rounded_menu">
+                            <ul>
+                                <li>
+                                    <a href="javascript:;" *ngIf="isDisabled()" (click)="showAlert()">All Class</a>
+                                    <a href="javascript:;" *ngIf="!isDisabled()" (click)="viewFees(termId,'All Class','All Class','All Class')">All Class</a>
+                                </li>
+                                <li *ngFor="let class of classes">
+                                    <a href="javascript:;" *ngIf="isDisabled()" (click)="showAlert()">{{class.classId.className}} {{class.streamName}}</a>
+                                    <a href="javascript:;" *ngIf="!isDisabled()" (click)="viewFees(termId,class.classId._id,class._id,class.classId.className+' '+class.streamName)">{{class.classId.className}} {{class.streamName}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- ./my_transport_all -->
+
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container -->
+</section>
+<!-- ./inner_cont_body -->
+<app-footer></app-footer>

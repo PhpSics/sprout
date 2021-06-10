@@ -1,0 +1,167 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/staff-management" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                        </div>
+                        <div class="transport_title titles_tl">
+                            <h3>Staff List</h3>
+                            <a class="btn btn_goback" data-toggle="modal" data-target="#transport"><i class="fa fa-plus-circle"></i> Add New</a>
+                        </div>
+
+                        <div class="teachr_list">
+                            <div class="teachr_list_single">
+                                <div class="teachr_infos">
+                                    <img src="https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-all-about-face.jpg">
+                                    <h5>Staff Name</h5>
+                                </div>
+                                <div class="teachr_controls">
+                                    <a href="javascript:;"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:;"><i class="fa fa-trash"></i></a>
+                                </div>
+                                <div class="teachr_go">
+                                    <a routerLink="/staff-details"><i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./teachr_list_single -->
+
+                            <div class="teachr_list_single">
+                                <div class="teachr_infos">
+                                    <img src="https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-all-about-face.jpg">
+                                    <h5>Staff Name</h5>
+                                </div>
+                                <div class="teachr_controls">
+                                    <a href="javascript:;"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:;"><i class="fa fa-trash"></i></a>
+                                </div>
+                                <div class="teachr_go">
+                                    <a routerLink="/staff-details"><i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./teachr_list_single -->
+
+                            <div class="teachr_list_single">
+                                <div class="teachr_infos">
+                                    <img src="https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-all-about-face.jpg">
+                                    <h5>Staff Name</h5>
+                                </div>
+                                <div class="teachr_controls">
+                                    <a href="javascript:;"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:;"><i class="fa fa-trash"></i></a>
+                                </div>
+                                <div class="teachr_go">
+                                    <a routerLink="/staff-details"><i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./teachr_list_single -->
+
+                            <div class="teachr_list_single">
+                                <div class="teachr_infos">
+                                    <img src="https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-all-about-face.jpg">
+                                    <h5>Staff Name</h5>
+                                </div>
+                                <div class="teachr_controls">
+                                    <a href="javascript:;"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:;"><i class="fa fa-trash"></i></a>
+                                </div>
+                                <div class="teachr_go">
+                                    <a routerLink="/staff-details"><i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./teachr_list_single -->
+                        </div>
+                    </div>
+                    <!-- ./my_transport_all -->
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="join_community" id="join_comm" *ngIf="!show">
+                    <div class="form-group">
+                        <a href="javascript:;" class="btn class_btn" id="add_stud" (click)="addStudent(true)">Add Staff Profile</a>
+                    </div>
+
+                    <div class="form-group">
+                        <a href="#" class="btn school_btn">Import From Excel</a>
+                    </div>
+                </div>
+
+                <div class="add_student" id="student_form" *ngIf="show">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="First Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="ID No">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Birth Certificate Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Date of Birth">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Nationality">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control"><option>Role</option></select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Mobile Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="file" class="form-control" placeholder="Contract">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Start Date">
+                    </div>
+
+
+                    <div class="form-group">
+                        <input type="submit" class="btn" value="Add">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn_cancel" value="Cancel" id="cancel_inp" (click)="addStudent(false)">
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+<app-footer></app-footer>

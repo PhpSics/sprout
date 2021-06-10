@@ -1,0 +1,99 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-control" [(ngModel)]="model.classId" (change)="changeClass($event.target.value)">
+                                <option value="">Select Class</option>
+                                <option *ngFor="let cl of class" value="{{cl._id}}">{{cl.className}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control" [(ngModel)]="model.streamId" (change)="changeStream($event.target.value)">
+                                <option value="">Select Stream</option>
+                                <option *ngFor="let stream of streams" value="{{stream._id}}">{{stream.streamName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <ul [ngClass]="{'disabled': disabled}">
+                        <li>
+                            <a *ngIf="!disabled" href="javascript:;" routerLink="/take-attendance">
+                                <i class="fa fa-calendar"></i>
+                                <span>Attendance</span>
+                            </a>
+                            <a *ngIf="disabled" href="javascript:;">
+                                <i class="fa fa-calendar"></i>
+                                <span>Attendance</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="!disabled" href="javascript:;" routerLink="/class-broadcastList">
+                                <i class="fa fa-envelope"></i>
+                                <span>Messages</span>
+                            </a>
+                            <a *ngIf="disabled" href="javascript:;">
+                                <i class="fa fa-envelope"></i>
+                                <span>Messages</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="!disabled" href="javascript:;" routerLink="/homework">
+                                <i class="fa fa-book"></i>
+                                <span>Homework</span>
+                            </a>
+                            <a *ngIf="disabled" href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Homework</span>
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-line-chart"></i>
+                                <span>Learning & Development</span>
+                            </a>
+                        </li> -->
+                        <!-- <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-calendar"></i>
+                                <span>Timetable</span>
+                            </a>
+                        </li> -->
+                        <!-- <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-building"></i>
+                                <span>Teaching Plan</span>
+                            </a>
+                        </li> -->
+                        <!-- <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-file-text"></i>
+                                <span>Assessments</span>
+                            </a>
+                        </li> -->
+                        <li>
+                            <a *ngIf="!disabled" routerLink="/students">
+                                <i class="fa fa-graduation-cap"></i>
+                                <span>Students</span>
+                            </a>
+                            <a *ngIf="disabled" href="javascript:;">
+                                <i class="fa fa-graduation-cap"></i>
+                                <span>Students</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container-fluid -->
+</section>
+<!-- ./inner_cont_body -->
+<app-footer></app-footer>

@@ -1,0 +1,100 @@
+<app-header></app-header>
+<!-- ./inner_cont_body -->
+<section class="inner_cont_body">
+    <div class="container main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="studnt_invoice">
+                            <img src="https://www.blackenterprise.com/wp-content/blogs.dir/1/files/2011/12/black-child-in-school-375x325-300x260.jpg">
+                            <h4>Will Smith</h4>
+                            <h5>254693</h5>
+                            <div class="input-file-container">
+                                <input class="input-file" id="my-file" type="file">
+                                <label tabindex="0" for="my-file" class="input-file-trigger"><i class="fa fa-paperclip"></i> Attach Invoice</label>
+                            </div>
+                            <p class="file-return"></p>
+                        </div>
+                        <!-- ./studnt_invoice -->
+
+                        <div class="stdnt_recpt_btn">
+                            <ul class="flex_row">
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-file-text-o"></i>
+                                        <span>Invoice Number</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                        <span>Add Deposit Slip</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-dollar"></i>
+                                        <span>Total Amount</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="popup_p" style="width:220px; margin:auto; margin-top:18px;">
+                                <input type="submit" class="btn" value="Submit">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./my_transport_all -->
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container -->
+</section>
+<!-- ./inner_cont_body -->
+
+<!------------------------------>
+<!-------- Modal popups -------->
+<!------------------------------>
+
+<!-- Transport popup -->
+<div id="transport" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <div class="modal-body">
+
+                <div class="popup_p">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Date">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Amount">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn" value="Add">
+                    </div>
+                </div>
+
+            </div>
+            <!-- ./modal-body -->
+        </div>
+        <!-- ./modal-content -->
+
+    </div>
+    <!-- ./modal-dialog -->
+</div>
+<!-- #/transport -->
+
+
+<app-footer></app-footer>

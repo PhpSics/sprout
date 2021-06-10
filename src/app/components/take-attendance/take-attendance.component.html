@@ -1,0 +1,159 @@
+<app-header></app-header>
+<section class="inner_cont_body">
+    <div class="container-fluid main_bg_white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <app-side-menu></app-side-menu>
+
+                <div class="admin_menus">
+                    <div class="my_transport_all bg_admin_one">
+                        <div class="goBack">
+                            <a routerLink="/class-management" class="btn"><i class="fa fa-chevron-left"></i> Back to Home</a>
+                        </div>
+
+                        <div class="transport_title">
+                            <h3>Attendance</h3>
+                        </div>
+                        <div class="selct_class_dropdown">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <select class="form-control" [(ngModel)]="model.classId" (change)="changeClass($event.target.value)">
+                                            <option value="">Select Class</option>
+                                            <option *ngFor="let cl of class" value="{{cl._id}}">{{cl.className}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- ./col-lg-6 col-md-6 col-sm-12 col-xs-12 -->
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <select class="form-control" [(ngModel)]="model.streamId" (change)="changeStream($event.target.value)">
+                                            <option value="">Select Stream</option>
+                                            <option *ngFor="let stream of streams" value="{{stream._id}}">{{stream.streamName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- ./col-lg-6 col-md-6 col-sm-12 col-xs-12 -->
+                            </div>
+                            <!-- ./row -->
+                        </div>
+                        <!-- ./selct_class_dropdown -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <nav>
+                                    <div class="nav nav-tabs custom-nav-tab ornge_nav_tab" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-total-invoice" data-toggle="tab" href="#nav-homework" role="tab" aria-controls="nav-home" aria-selected="true">Take Attendance</a>
+                                        <a *ngIf="isAtt" (click)="reviewAttendance()" class="nav-item nav-link" id="nav-total-receive" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Review Attendance</a>
+
+                                        <a *ngIf="!isAtt" (click)="showAlert()" class="nav-item nav-link">Review Attendance</a>
+                                    </div>
+                                </nav>
+
+                                <div class="tab-content tab-custom-bdy" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-homework" role="tabpanel" aria-labelledby="nav-homework-tab">
+                                        <div class="attndnce" *ngFor="let attendance of Atmodel1['attendance']">
+                                            <div class="attndnce_cont">
+                                                <img *ngIf="attendance.studentImage==''" src="{{defImgUrl}}">
+                                                <img *ngIf="attendance.studentImage!=''" src="{{Url+attendance.studentImage}}">
+                                                <h6>{{attendance.studentName}}</h6>
+                                            </div>
+                                            <!-- ./attndnce_cont -->
+                                            <div class="attndnce_chkbx">
+                                                <label class="chkbx_box">
+                                            <input type="checkbox" [(ngModel)]="attendance.status" name="attendance.id" #{{attendance.id}}="ngModel">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                                <!-- ./chkbx_box -->
+                                            </div>
+                                            <!-- ./attndnce_chkbx -->
+                                        </div>
+                                        <!-- ./attndnce -->
+
+                                        <div class="popup_p" style="width:300px; margin:auto; margin-top:15px;">
+                                            <!--<input type="submit" class="btn" value="Submit Attendance">-->
+                                            <a data-toggle="modal" class="orange_btn_p" *ngIf="!isAtt" (click)="openDialog()">Submit Attendance</a>
+
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                                        <div class="attndnce attndnce-flex attndnce-title">
+                                            <div class="attndnce_cont">
+                                                <span>Name</span>
+                                            </div>
+                                            <div class="attndnce_cont">
+                                                <span>Attendance (%)</span>
+                                            </div>
+                                            <div class="attndnce_cont">
+                                                <span>No Absence Days</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="attndnce attndnce-flex" *ngFor="let review of reviews;let i=index">
+                                            <div class="attndnce_cont" data-toggle="modal" data-target="#eventtransport" (click)="showReason(i)">
+                                                <img *ngIf="review.studentId.studentImage==''" src="{{defImgUrl}}">
+                                                <img *ngIf="review.studentId.studentImage!=''" src="{{Url+review.studentId.studentImage}}">
+                                                <h6>{{review.studentId.studentName}}</h6>
+                                            </div>
+                                            <!-- ./attndnce_cont -->
+                                            <div class="attndnce_cont" data-toggle="modal" data-target="#eventtransport" (click)="showReason(i)">
+                                                <span *ngIf="review.absentDates.length==0">100</span>
+                                                <span *ngIf="review.absentDates.length>0">{{(review.present/review.TotalWorkingDas)*100|number:'1.0-0'}}</span>
+                                            </div>
+                                            <div class="attndnce_cont" data-toggle="modal" data-target="#eventtransport" (click)="showReason(i)">
+                                                <span>{{review.absentDates.length}}</span>
+                                            </div>
+                                        </div>
+                                        <!-- ./attndnce_chkbx -->
+                                        <!-- ./attndnce -->
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./admin_menus -->
+            </div>
+            <!-- ./col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./container -->
+</section>
+<!-- ./inner_cont_body -->
+
+<div id="eventtransport" class="modal fade" role="dialog" *ngIf="reason.absentDates.length>0">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{reason.studentId.studentName}}</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+            </div>
+            <!-- ./modal-header -->
+            <!-- ./modal-header -->
+            <div class="modal-body">
+                <div class="popup_p">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-head-blue">
+                                <th>Absent On</th>
+                                <th>Reason</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of reason.absentDates">
+                                    <td>{{r.createdAt | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{r.reason}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
